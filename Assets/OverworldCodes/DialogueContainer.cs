@@ -31,7 +31,7 @@ public class DialogueContainer : MonoBehaviour
     public int
         currentLine = 0;
 
-    public CharacterControls player;
+    //public CharacterControls player;
 
     public bool
         isActive,
@@ -82,10 +82,10 @@ public class DialogueContainer : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (player == null)
-        {
-            player = FindObjectOfType<CharacterControls>();
-        }
+        //if (player == null)
+        //{
+        //    player = FindObjectOfType<CharacterControls>();
+        //}
 
         if (text == null)
         {
@@ -146,14 +146,14 @@ public class DialogueContainer : MonoBehaviour
     {
         DialogueController newDialogueController = new DialogueController(text, storyBased);
 
-        if (!player.canMove)
-        {
-            npcPicture.enabled = true;
-        }
-        else
-        {
-            npcPicture.enabled = false;
-        }
+        //if (!player.canMove)
+        //{
+        //    npcPicture.enabled = true;
+        //}
+        //else
+        //{
+        //    npcPicture.enabled = false;
+        //}
 
         if (newDialogueController.NPCImage != null)
         {
@@ -165,43 +165,42 @@ public class DialogueContainer : MonoBehaviour
             npcName.enabled = false;
             namePanel.SetActive(false);
         }
+        
 
-        PauseMenu.canPause = false;
-
-        if (Input.GetKeyDown(PlayerData.controls[(int)CustomControls.Controls.Talk].key) || skipStart)
-        {
-            if(skipStart)
-            {
-                skipStart = false;
-            }
-            //if there are more lines to be read, shows the current line of text and prepares for the next one
-            if (currentLine <= newDialogueController.EndAtLine)
-            {
-                npcText.text = newDialogueController.textLines[currentLine];
-                currentLine++;
-                if(currentLine > newDialogueController.EndAtLine && hasQuest)
-                {
-                    questButton.SetActive(true);
-                }
-                else if (currentLine > newDialogueController.EndAtLine && hasStore)
-                {
-                    storeButton.SetActive(true);
-                }
-            }
-            //if there are no more lines, closes the window and prepares the next instance of texts until it reaches the limit
-            else
-            {
-                if(hasStore && StoreUI.activeInHierarchy || questButton.activeInHierarchy == true)
-                {
-                    //do nothing
-                }
-                else
-                {
-                    DisableTextBox();
-                    updateInst = true;
-                }
-            }
-        }
+        //if (Input.GetKeyDown(PlayerData.controls[(int)CustomControls.Controls.Talk].key) || skipStart)
+        //{
+        //    if(skipStart)
+        //    {
+        //        skipStart = false;
+        //    }
+        //    //if there are more lines to be read, shows the current line of text and prepares for the next one
+        //    if (currentLine <= newDialogueController.EndAtLine)
+        //    {
+        //        npcText.text = newDialogueController.textLines[currentLine];
+        //        currentLine++;
+        //        if(currentLine > newDialogueController.EndAtLine && hasQuest)
+        //        {
+        //            questButton.SetActive(true);
+        //        }
+        //        else if (currentLine > newDialogueController.EndAtLine && hasStore)
+        //        {
+        //            storeButton.SetActive(true);
+        //        }
+        //    }
+        //    //if there are no more lines, closes the window and prepares the next instance of texts until it reaches the limit
+        //    else
+        //    {
+        //        if(hasStore && StoreUI.activeInHierarchy || questButton.activeInHierarchy == true)
+        //        {
+        //            //do nothing
+        //        }
+        //        else
+        //        {
+        //            DisableTextBox();
+        //            updateInst = true;
+        //        }
+        //    }
+        //}
     }
 
     //when passing information
@@ -223,10 +222,7 @@ public class DialogueContainer : MonoBehaviour
         this.storyBased = storyBased;
         this.advanceStory = advanceStory;
 
-        if (stopPlayerMovement)
-        {
-            player.canMove = false;
-        }
+        
 
         ReadText();
     }
@@ -239,10 +235,6 @@ public class DialogueContainer : MonoBehaviour
         picturePanel.SetActive(true);
         isActive = true;
         
-        if (stopPlayerMovement)
-        {
-            player.canMove = false;
-        }
     }
 
     //hides all textbox values and updates a flag to change the npc instance value
@@ -254,17 +246,14 @@ public class DialogueContainer : MonoBehaviour
         isActive = false;
 
         currentLine = 0;
-        PauseMenu.canPause = true;
 
         questButton.SetActive(false);
         storeButton.SetActive(false);
-
-        if (player != null)
-            player.canMove = true;
+        
 
         if(storyBased && advanceStory)
         {
-            SceneLoader.storyInstance++;
+            //SceneLoader.storyInstance++;
         }
     }
 
@@ -297,7 +286,7 @@ public class DialogueContainer : MonoBehaviour
 
             if(storyBased)
             {
-                adder += SceneLoader.storyInstance;
+                //adder += SceneLoader.storyInstance;
             }
 
             NPCName = DiaNode.Attributes["ID"].Value;

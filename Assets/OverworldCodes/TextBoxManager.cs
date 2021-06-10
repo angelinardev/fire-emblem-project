@@ -21,7 +21,7 @@ public class TextBoxManager : MonoBehaviour
         currentLine,
         endAtLine;
 
-    public CharacterControls player;
+    //public CharacterControls player;
 
     public bool
         isActive = false,
@@ -35,7 +35,7 @@ public class TextBoxManager : MonoBehaviour
     {
         changeName = true;
 
-        player = FindObjectOfType<CharacterControls>();
+        //player = FindObjectOfType<CharacterControls>();
 
         if(textFile != null)
         {
@@ -90,10 +90,10 @@ public class TextBoxManager : MonoBehaviour
         nameBox.SetActive(true);
         isActive = true;
 
-        if(stopPlayerMovement)
-        {
-            player.canMove = false;
-        }
+        //if(stopPlayerMovement)
+        //{
+        //    player.canMove = false;
+        //}
     }
 
     public void DisableTextBox()
@@ -102,7 +102,7 @@ public class TextBoxManager : MonoBehaviour
         nameBox.SetActive(false);
         isActive = false;
 
-        player.canMove = true;
+        //player.canMove = true;
     }
 
     public void ReloadScript(TextAsset npcText)

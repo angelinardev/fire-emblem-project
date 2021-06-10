@@ -158,12 +158,12 @@ public class BattleController : MonoBehaviour
         attackRight = GameObject.Find("Right");
         inventoryPage = GameObject.Find("Page");
 
-        itemButton.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[9].key.ToString();
-        specialButton.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[10].key.ToString();
-        defenseButton.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[4].key.ToString();
-        attackButton.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[5].key.ToString();
-        attackLeft.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[6].key.ToString();
-        attackRight.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[7].key.ToString();
+        //itemButton.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[9].key.ToString();
+        //specialButton.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[10].key.ToString();
+        //defenseButton.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[4].key.ToString();
+        //attackButton.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[5].key.ToString();
+        //attackLeft.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[6].key.ToString();
+        //attackRight.transform.GetChild(0).GetComponent<Text>().text = PlayerData.controls[7].key.ToString();
     }
 
     //private void DeselectAll()
@@ -234,10 +234,10 @@ public class BattleController : MonoBehaviour
         {
             ResetTurns();
         }
-
+        /*
         if(attackBox.activeInHierarchy || itemBox.activeInHierarchy || defenseBox.activeInHierarchy || specialBox.activeInHierarchy)
         {
-            ButtonController.CheckInput();
+            //ButtonController.CheckInput();
         }
 
         for (int i = 0; i < playerCharacterBattle.Count; i++)
@@ -280,7 +280,7 @@ public class BattleController : MonoBehaviour
                 offTimer++;
             }
             ActionBoxUpdater();
-            if ((attackBox.activeInHierarchy || specialBox.activeInHierarchy) /*&& Input.GetButtonDown("ShiftAttack")*/)
+            if ((attackBox.activeInHierarchy || specialBox.activeInHierarchy) /*&& Input.GetButtonDown("ShiftAttack")/)
             {
                 if (Input.GetKeyDown(PlayerData.controls[(int)CustomControls.Controls.CycleLeft].key) || Input.GetKeyDown(PlayerData.controls[(int)CustomControls.Controls.Left].key))// cycle left
                 {
@@ -325,7 +325,7 @@ public class BattleController : MonoBehaviour
                 
 
             }
-            else if (itemBox.activeInHierarchy /*&& Input.GetButtonDown("ShiftAttack")*/)
+            else if (itemBox.activeInHierarchy /*&& Input.GetButtonDown("ShiftAttack"))
             {
                 if (Input.GetKeyDown(PlayerData.controls[(int)CustomControls.Controls.CycleLeft].key) || Input.GetKeyDown(PlayerData.controls[(int)CustomControls.Controls.Left].key))// cycle left
                 {
@@ -388,121 +388,16 @@ public class BattleController : MonoBehaviour
             //{
             //    MenuOff();
             //}
-        }
+        }*/
     }
 
-    public void ChangeTarget()
-    {
-        if (EventSystem.current.currentSelectedGameObject.name == "Left")
-        {
-            target--;
-            if (target < 0)
-            {
-                target = enemyCharacterBattle.Count - 1;
-            }
-        }
-        else if (EventSystem.current.currentSelectedGameObject.name == "Right")
-        {
-            target++;
-            if (target > (enemyCharacterBattle.Count - 1))
-            {
-                target = 0;
-            }
-        }
-        else if (EventSystem.current.currentSelectedGameObject.name == "PageLeft")
-        {
-            if(pageNum < maxPage)
-            {
-                pageNum = maxPage;
-            }
-            else
-            {
-                pageNum--;
-            }
-        }
-        else if (EventSystem.current.currentSelectedGameObject.name == "PageRight")
-        {
-            if (pageNum >= maxPage)
-            {
-                pageNum = 1;
-            }
-            else
-            {
-                pageNum++;
-            }
-        }
-
-        if (attackBox.activeInHierarchy)
-        {
-            PlayerAttack();
-        }
-        else if (specialBox.activeInHierarchy)
-        {
-            PlayerSpecial();
-        }
-        else if (itemBox.activeInHierarchy)
-        {
-            PlayerItem();
-        }
-    }
+   
 
     public void PlayerAttack()
     {
         MenuOff();
 
-        attackButton.SetActive(false);
-        attackBox.SetActive(true);
-
-        EventSystem.current.SetSelectedGameObject(null);
-
-        EventSystem.current.SetSelectedGameObject(GameObject.Find("Attack2"));
-
-        if (enemyCharacterBattle.Count == 1)
-        {
-            attackLeft.SetActive(false);
-            attackRight.SetActive(false);
-        }
-        else
-        {
-            attackRight.SetActive(true);
-            attackLeft.SetActive(true);
-        }
-
-        for (int i = 0; i < attack.Length; i++)
-        {
-            if (i == 0)
-            {
-                attack[i] = GameObject.Find("Attack" + (i + 1) + "/Text").GetComponent<Text>();
-                attack[i].text = enemyCharacterBattle[target].gameObject.name;
-            }
-            else if (i == 1)
-            {
-                attack[i] = GameObject.Find("Attack" + (i + 1) + "/Text").GetComponent<Text>();
-                attack[i].text = enemyCharacterBattle[target].healthSystem.GetHealth() + " / " + enemyCharacterBattle[target].healthSystem.GetMaxHealth();
-            }
-            else if(i ==2)
-            {
-                attack[i] = GameObject.Find("Attack" + (i + 1) + "/Text").GetComponent<Text>();
-                
-                for(int j = 0; j < PlayerData.teamStats[(int)turn].equipment.Count; j++)
-                {
-                    if(PlayerData.teamStats[(int)turn].equipment[j].slotType == InventoryData.SlotType.Weapon)
-                    {
-                        attack[i].text = PlayerData.teamStats[(int)turn].equipment[j].name;
-                        return;
-                    }
-                }
-                if (PlayerData.teamStats[(int)turn].equipment.Count < 1 || attack[i].text == "")
-                {
-                    attack[i].text = "No Weapon";
-                }
-            }
-            else
-            {
-                attack[i] = GameObject.Find("Attack" + (i + 1) + "/Text").GetComponent<Text>();
-                attack[i].text = "";
-            }
-        }
+        
     }
 
     public void AttackMenu()
@@ -538,273 +433,7 @@ public class BattleController : MonoBehaviour
         }
         return null;
     }
-
-    public void PlayerSpecial()
-    {
-        //playerCharacterBattle[(int)turn].Heal(40);
-
-        MenuOff();
-
-        specialButton.SetActive(false);
-        specialBox.SetActive(true);
-
-        EventSystem.current.SetSelectedGameObject(null);
-
-        EventSystem.current.SetSelectedGameObject(GameObject.Find("Special1"));
-
-        charSp = GameObject.Find("CharacterSp/Text").GetComponent<Text>();
-        charSp.text = "SP " + PlayerData.teamStats[(int)turn].currentSP.ToString();
-
-        for (int i = 0; i < attack.Length; i++)
-        {
-            if (i == 0)
-            {
-                attack[i] = GameObject.Find("Attack" + (i + 1) + "/Text").GetComponent<Text>();
-                attack[i].text = enemyCharacterBattle[target].gameObject.name;
-            }
-            else if (i == 1)
-            {
-                attack[i] = GameObject.Find("Attack" + (i + 1) + "/Text").GetComponent<Text>();
-                attack[i].text = enemyCharacterBattle[target].healthSystem.GetHealth() + " / " + enemyCharacterBattle[target].healthSystem.GetMaxHealth();
-            }
-        }
-
-        for (int i = 0; i < 6; i++)
-        {
-            if (i < PlayerData.teamStats[(int)turn].currentSkills.Count)
-            {
-                special[i] = GameObject.Find("Special" + (i + 1) + "/Text").GetComponent<Text>();
-
-                if(PlayerData.teamStats[(int)turn].currentSkills[i].skillCost > PlayerData.teamStats[(int)turn].currentSP)
-                {
-                    special[i].color = Color.grey;
-                }
-                else
-                {
-                    special[i].color = Color.white;
-                }
-
-                special[i].text = PlayerData.teamStats[(int)turn].currentSkills[i].skillName;
-
-                if(i > 0)
-                {
-                    battleButtons[i].selectOnUp = GameObject.Find("Special" + i).GetComponent<Button>(); // sets previous button above to up on current button
-                    battleButtons[i - 1].selectOnDown = GameObject.Find("Special" + (i + 1)).GetComponent<Button>(); // sets current button to down on previous button
-                }
-                if(i == 5)
-                {
-                    battleButtons[0].selectOnUp = GameObject.Find("Special" + (i + 1)).GetComponent<Button>(); // sets current button to up on first button
-                    battleButtons[i].selectOnDown = GameObject.Find("Special" + 1).GetComponent<Button>(); // sets first button to down on current button
-                }
-            }
-            else
-            {
-                special[i] = GameObject.Find("Special" + (i + 1) + "/Text").GetComponent<Text>();
-                special[i].text = "";
-                battleButtons[0].selectOnUp = GameObject.Find("Special" + i).GetComponent<Button>(); // sets previous button to up on first button
-                battleButtons[i - 1].selectOnDown = GameObject.Find("Special" + 1).GetComponent<Button>(); // sets first button to down on previous button
-                break;
-            }
-        }
-
-        for(int i = 0; i < PlayerData.teamStats[(int)turn].currentSkills.Count; i++)
-        {
-            if (special[i].text == "")
-            {
-                EventSystem.current.SetSelectedGameObject(null);
-                break;
-            }
-
-            GameObject.Find("Special" + (i + 1)).GetComponent<Button>().navigation = battleButtons[i];
-        }
-    }
-
-    public void SpecialMenu()
-    {
-        state = State.Busy;
-        string name = EventSystem.current.currentSelectedGameObject.name;
-        Text it = GameObject.Find(name + "/Text").GetComponent<Text>();
-
-        if (it.text == "" || it.color == Color.grey)
-        {
-            state = State.WaitingForPlayer;
-            return;
-        }
-        for (int i = 0; i < PlayerData.teamStats[(int)turn].currentSkills.Count; i++)
-        {
-            if (special[i].text == it.text)
-            {
-                PlayerData.teamStats[(int)turn].currentSP -= PlayerData.teamStats[(int)turn].currentSkills[i].skillCost;
-                playerCharacterBattle[(int)turn].SpecialAttack(enemyCharacterBattle[target], () => { ChooseNextActiveCharacter(); }, PlayerData.teamStats[(int)turn].currentSkills[i].skillDamage);
-            }
-        }
-        MenuOff();
-    }
-
-    public void PlayerItem()
-    {
-        MenuOff();
-
-        itemBox.SetActive(true);
-        itemButton.SetActive(false);
-
-        EventSystem.current.SetSelectedGameObject(null);
-
-        EventSystem.current.SetSelectedGameObject(GameObject.Find("Item1"));
-
-        maxPage = Mathf.CeilToInt(PlayerData.ItemInventory.Count / 6f);
-
-        //print(pageNum + "/" + maxPage);
-
-        if(PlayerData.ItemInventory.Count < 6)
-        {
-            inventoryPage.SetActive(false);
-        }
-        else
-        {
-            inventoryPage.SetActive(true);
-        }
-
-        for(int i = 0; i < 6; i++)
-        {
-            if (i + (pageNum - 1) * 6 < PlayerData.ItemInventory.Count)
-            {
-                item[i] = GameObject.Find("Item" + (i + 1) + "/Text").GetComponent<Text>();
-                item[i].text = PlayerData.ItemInventory[i + ((pageNum - 1) * 6)].name;
-
-                if (i > 0)
-                {
-                    battleButtons[i].selectOnUp = GameObject.Find("Item" + i).GetComponent<Button>(); // sets previous button above to up on current button
-                    battleButtons[i - 1].selectOnDown = GameObject.Find("Item" + (i + 1)).GetComponent<Button>(); // sets current button to down on previous button
-                }
-                if (i == 5)
-                {
-                    battleButtons[0].selectOnUp = GameObject.Find("Item" + (i + 1)).GetComponent<Button>(); // sets current button to up on first button
-                    battleButtons[i].selectOnDown = GameObject.Find("Item" + 1).GetComponent<Button>(); // sets first button to down on current button
-                }
-            }
-            else
-            {
-                item[i] = GameObject.Find("Item" + (i + 1) + "/Text").GetComponent<Text>();
-                item[i].text = "";
-
-                if(i > 0)
-                {
-                    battleButtons[0].selectOnUp = GameObject.Find("Item" + i).GetComponent<Button>(); // sets previous button to up on first button
-                    battleButtons[i - 1].selectOnDown = GameObject.Find("Item" + 1).GetComponent<Button>(); // sets first button to down on previous button
-                }
-                
-                break;
-            }
-        }
-
-        for (int i = 0; i < 6; i++)
-        {
-            if (item[0].text == "")
-            {
-                EventSystem.current.SetSelectedGameObject(null);
-                break;
-            }
-            
-            GameObject.Find("Item" + (i + 1)).GetComponent<Button>().navigation = battleButtons[i];
-        }
-
-        
-    }
-
-    public void ItemMenu()
-    {
-        state = State.Busy;
-        string name = EventSystem.current.currentSelectedGameObject.name;
-        Text it = GameObject.Find(name + "/Text").GetComponent<Text>();
-
-        if (it.text == "")
-        {
-            state = State.WaitingForPlayer;
-            return;
-        }
-        for (int i = 0; i< PlayerData.ItemInventory.Count; i++)
-        {
-            if(item[i].text == it.text)
-            {
-                if(PlayerData.ItemInventory[i].itemType == InventoryData.ItemType.Heal)
-                {
-                    playerCharacterBattle[(int)turn].Heal(PlayerData.ItemInventory[i].HPAmount, PlayerData.ItemInventory[i].SPAmount);
-                }
-                else
-                {
-                    enemyCharacterBattle[target].Damage(PlayerData.ItemInventory[i].HPAmount);
-                }
-                PlayerData.ItemInventory.RemoveAt(i);
-
-                break;
-            }
-        }
-        if (TestBattleOver())
-        {
-            state = State.Busy;
-            actionBox.SetActive(false);
-            return;
-        }
-        MenuOff();
-        ChooseNextActiveCharacter();
-    }
-
-    public void PlayerDefense()
-    {
-        MenuOff();
-
-        defenseButton.SetActive(false);
-        defenseBox.SetActive(true);
-
-        EventSystem.current.SetSelectedGameObject(null);
-
-        EventSystem.current.SetSelectedGameObject(GameObject.Find("Defense1"));
-
-        for (int i = 0; i < 2; i++)
-        {
-            if (i < DefenseList.Count)
-            {
-                defense[i] = GameObject.Find("Defense" + (i + 1) + "/Text").GetComponent<Text>();
-                defense[i].text = DefenseList[i];
-            }
-            else
-            {
-                defense[i] = GameObject.Find("Defense" + (i + 1) + "/Text").GetComponent<Text>();
-                defense[i].text = "";
-            }
-        }
-    }
-
-    public void DefenseMenu()
-    {
-        state = State.Busy;
-        string name = EventSystem.current.currentSelectedGameObject.name;
-        Text it = GameObject.Find(name + "/Text").GetComponent<Text>();
-
-        if (it.text == "")
-        {
-            state = State.WaitingForPlayer;
-            return;
-        }
-        for (int i = 0; i < 6; i++)
-        {
-            if (defense[i].text == it.text)
-            {
-                if(i ==0)
-                {
-                    playerCharacterBattle[(int)turn].Defend();
-                }
-                else if(i == 1)
-                {
-                    SceneLoader.LeaveBattle();
-                    return;
-                }
-                ChooseNextActiveCharacter();
-            }
-        }
-        MenuOff();
-    }
+    
 
     public void MenuOff()
     {
@@ -835,13 +464,6 @@ public class BattleController : MonoBehaviour
             characterTransform.name = name;
             CharacterBattleScript characterBattle = characterTransform.GetComponent<CharacterBattleScript>();
             characterBattle.Setup(isPlayerTeam, name);
-
-            if (PlayerData.teamStats[charNum].name == CharacterInfoController.CharacterName.Gerrison.ToString())
-                characterTransform.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = Resources.Load("Mats/Gerrison") as Material;
-            else if (PlayerData.teamStats[charNum].name == CharacterInfoController.CharacterName.Sharan.ToString())
-                characterTransform.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = Resources.Load("Mats/Sharan") as Material;
-            else if (PlayerData.teamStats[charNum].name == CharacterInfoController.CharacterName.Roger.ToString())
-                characterTransform.transform.GetChild(0).gameObject.GetComponent<Renderer>().material = Resources.Load("Mats/Roger") as Material;
 
             return characterBattle;
         }
@@ -1105,7 +727,7 @@ public class BattleController : MonoBehaviour
         {
             //player dead you lose
             print("You Lose!");
-            SceneLoader.GameOver();
+            //SceneLoader.GameOver();
             battleStop = true;
             return true;
         }
@@ -1137,23 +759,19 @@ public class BattleController : MonoBehaviour
         if (enemyCharacterBattle.Count == 0)
         {
             BattleTransitionCode.enemyChecker[BattleTransitionCode.enemyRemoveNum] = true;
-
-            if (PlayerData.activeQuestList.Count > 0)
-            {
-                PlayerData.activeQuestList[0].goal.EnemyKilled();
-            }
+            
 
             for (int i = 0; i < PlayerData.teamStats.Count; i++)
             {
                 if(PlayerData.teamStats[i].leveled)
                 {
-                    SceneLoader.LevelUpScreen();
+                    //SceneLoader.LevelUpScreen();
                     battleStop = true;
                     return true;
                 }
             }
 
-            SceneLoader.LeaveBattle();
+            //SceneLoader.LeaveBattle();
 
             battleStop = true;
             return true;

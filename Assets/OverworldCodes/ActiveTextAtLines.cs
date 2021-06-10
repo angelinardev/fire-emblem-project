@@ -24,7 +24,7 @@ public class ActiveTextAtLines : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if(waitForPress && Input.GetKeyDown(PlayerData.controls[(int)CustomControls.Controls.Jump].key))
+		if(waitForPress && Input.GetKeyDown("Fire"/*PlayerData.controls[(int)CustomControls.Controls.Jump].key*/))
         {
             //theTextBox.ReloadScript(theText);
             //theTextBox.currentLine = startLine;

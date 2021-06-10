@@ -84,7 +84,7 @@ public class TalkingNPC : MonoBehaviour
         }
 
         //starts the conversation after an x press
-        if (waitForPress && Input.GetKeyDown(PlayerData.controls[(int)CustomControls.Controls.Talk].key) && !DialogueContainer.updateInst && DialogueContainer.canTalk || prompt)
+        if (waitForPress && Input.GetKeyDown(/*PlayerData.controls[(int)CustomControls.Controls.Talk].key)*/ "Fire") && !DialogueContainer.updateInst && DialogueContainer.canTalk || prompt)
         {
             if(prompt)
             {
@@ -103,44 +103,7 @@ public class TalkingNPC : MonoBehaviour
             {
                 theTextBox.hasStore = true;
             }
-
-            if (hasQuest)
-            {
-                if(PlayerData.activeQuestList.Count > 0)
-                {
-                    for(int i = 0; i < PlayerData.activeQuestList.Count; i++)
-                    {
-                        if((transform.parent.name + "_" + SceneLoader.sceneLocation[0] + "_" + SceneLoader.storyInstance + "_" + 1) == PlayerData.activeQuestList[i].id)
-                        {
-                            theTextBox.hasQuest = false;
-                            break;
-                        }
-                        if(i == PlayerData.activeQuestList.Count -1)
-                        {
-                            theTextBox.hasQuest = true;
-                        }
-                    }
-                }else if (PlayerData.completedQuestList.Count > 0)
-                {
-                    for (int i = 0; i < PlayerData.completedQuestList.Count; i++)
-                    {
-                        if ((transform.parent.name + "_" + SceneLoader.sceneLocation[0] + "_" + SceneLoader.storyInstance + "_" + 1) == PlayerData.completedQuestList[i].id)
-                        {
-                            theTextBox.hasQuest = false;
-                            break;
-                        }
-                        if (i == PlayerData.completedQuestList.Count - 1)
-                        {
-                            theTextBox.hasQuest = true;
-                        }
-                    }
-                }
-                else
-                {
-                    theTextBox.hasQuest = true;
-                }
-            } else
-                theTextBox.hasQuest = false;
+            
 
             theTextBox.EnableTextBox(npcName, instanceNum, instanceCap, text, storyBased, advanceStory);
         }
@@ -172,10 +135,8 @@ public class TalkingNPC : MonoBehaviour
             {
                 if(recruitable)
                 {
-                    GameObject.Find("Canvas").GetComponent<PauseMenu>().LoadStats(transform.parent.name);
-
-                    //PauseMenu.nameList.Add(transform.parent.name);
-                    PauseMenu.updateInfo = true;
+                    //GameObject.Find("Canvas").GetComponent<PauseMenu>().LoadStats(transform.parent.name);
+                    
                     Destroy(transform.parent.gameObject);
                 }
                 Destroy(gameObject);
