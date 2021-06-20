@@ -58,9 +58,19 @@ public class CursorMovementScript : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().enabled = true;
             }
         }
-
+        //don't move past boundaries
+        if (gameObject.transform.position.x + horizontal <= -22.5 || gameObject.transform.position.x + horizontal >= 9.5)
+        {
+            horizontal = 0;
+        }
+        if (gameObject.transform.position.y + vertical <= -2.5 || gameObject.transform.position.y+vertical >= 13.5)
+        {
+            vertical = 0;
+        }
         //moves the cursor once then stops additional movement
         gameObject.transform.position += new Vector3(horizontal, vertical, 0);
+       
+        
         horizontal = vertical = 0;
 
         
