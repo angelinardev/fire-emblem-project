@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StatsScript : MonoBehaviour
 {
+    public string name = "";
+
     public int
         Lvl = 1,
         HP  = 1,
@@ -49,7 +51,10 @@ public class StatsScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(name == "")
+        {
+            name = gameObject.transform.name;
+        }
     }
 
     // Update is called once per frame

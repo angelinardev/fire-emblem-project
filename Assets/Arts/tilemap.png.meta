@@ -10,7 +10,7 @@ TextureImporter:
     second: tilemap_1
   - first:
       213: 1873917168148291061
-    second: tilemap_2
+    second: Mountain
   - first:
       213: 4035501790466999928
     second: tilemap_3
@@ -463,7 +463,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tilemap_2
+      name: Mountain
       rect:
         serializedVersion: 2
         x: 41

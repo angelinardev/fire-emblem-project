@@ -9,6 +9,10 @@ public class CursorMovementScript : MonoBehaviour
 
     public float blinkSpeed = 0.4f;
 
+    public GameObject canvas;
+
+    public bool lockMovement = false;
+
     private void Start()
     {
         //runs function Blink at the start and reruns it every 0.4 seconds by default
@@ -19,6 +23,7 @@ public class CursorMovementScript : MonoBehaviour
     void Update()
     {
         Controls();
+        Debug.DrawRay(transform.position, -Vector2.up, Color.green);
     }
 
     void Blink()
@@ -29,6 +34,13 @@ public class CursorMovementScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //stops all cursor movement and removes stored movement
+        if (lockMovement)
+        {
+            horizontal = vertical = 0;
+            return;
+        }
+
         MovementUpdate();
     }
 
@@ -45,6 +57,34 @@ public class CursorMovementScript : MonoBehaviour
         if (Input.GetButtonDown("Vertical"))
         {
             vertical = (int)Input.GetAxisRaw("Vertical");
+        }
+
+        if (Input.GetButtonDown("Confirm"))
+        {
+            //opens menus
+            canvas.GetComponent<MenuController>().UpdateMenu(true);
+
+            //disables cursor movement
+            lockMovement = true;
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
+            
+
+            // If it hits something
+            if (hit.collider != null && hit.transform.GetComponent<MenuInfoSuppyCode>())
+            {
+                //print()
+                hit.transform.GetComponent<MenuInfoSuppyCode>().FillMenu();
+            }
+        }
+
+        if (Input.GetButtonDown("Return"))
+        {
+            //closes the menus currently visible
+            canvas.GetComponent<MenuController>().UpdateMenu(false);
+
+            //enables cursor movement
+            lockMovement = false;
         }
     }
 
