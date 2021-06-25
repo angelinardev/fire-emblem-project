@@ -13,6 +13,22 @@ public class MenuInfoSuppyCode : MonoBehaviour
         Player,
         Enemy
     }
+    
+    public void Blink()
+    {
+        //turns cursor on and off
+        gameObject.GetComponent<SpriteRenderer>().enabled = !gameObject.GetComponent<SpriteRenderer>().enabled;
+    }
+    public void start_b()
+    {
+        //runs function Blink at the start and reruns it every 0.4 seconds by default
+        InvokeRepeating("Blink", 0, 0.4f);
+    }
+
+    public void stop_b()
+    {
+        CancelInvoke("Blink");
+    }
 
     public void FillMenu()
     {
