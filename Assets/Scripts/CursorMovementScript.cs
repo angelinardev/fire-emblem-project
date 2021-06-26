@@ -152,28 +152,22 @@ public class CursorMovementScript : MonoBehaviour
         //check to see if movement range is possible
         if (unitSelected)
         {
+            //determine the number of steps taken by taking the difference between the destination position and the current position
+            totalSteps = desPos - currentPos;
             //some algorithm
-            //check x boundary
-            if (!((desPos.x + horizontal <= currentPos.x + remainMov) && (desPos.x + horizontal >= currentPos.x - remainMov) && (Mathf.Abs(totalSteps.x) + Mathf.Abs(totalSteps.y) <= remainMov)))
+            //check how many spaces can be moved
+            if (!((Mathf.Abs(totalSteps.x+horizontal)  + Mathf.Abs(totalSteps.y+vertical) < remainMov)))
             {
                 horizontal = 0;
+                vertical = 0;
             }
             else //success
             {
                 //increment to get to possible grid space
                 desPos.x += horizontal;
-                //determine the number of steps taken by taking the difference between the destination position and the current position
-                totalSteps = desPos - currentPos;
-            }
-            //y boundary
-            if (!((desPos.y + vertical <= currentPos.y + remainMov) && (desPos.y + vertical >= currentPos.y - remainMov) && (Mathf.Abs(totalSteps.x) + Mathf.Abs(totalSteps.y) <= remainMov)))
-            {
-                vertical = 0;
-            }
-            else
-            {
                 desPos.y += vertical;
-                totalSteps = desPos - currentPos;
+                
+
             }
         }
         //moves the cursor once then stops additional movement
