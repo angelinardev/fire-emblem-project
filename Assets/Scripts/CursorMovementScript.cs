@@ -32,7 +32,6 @@ public class CursorMovementScript : MonoBehaviour
     void Update()
     {
         Controls();
-        Debug.DrawRay(transform.position, -Vector2.up, Color.green);
     }
 
     void Blink()
@@ -57,81 +56,82 @@ public class CursorMovementScript : MonoBehaviour
     private void Controls()
     {
         //sets left or right on
-            if (Input.GetButtonDown("Horizontal"))
+        if (Input.GetButtonDown("Horizontal"))
+        {
+
+            horizontal = (int)Input.GetAxisRaw("Horizontal");
+        }
+
+        //sets up or down on
+        if (Input.GetButtonDown("Vertical"))
+        {
+            vertical = (int)Input.GetAxisRaw("Vertical");
+
+        }
+
+        if (Input.GetButtonDown("Confirm"))
+        {
+
+            //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
+            RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
+
+            for(int i = 0; i < hitAll.Length; i++)
             {
-                
-                horizontal = (int)Input.GetAxisRaw("Horizontal");
-            }
-
-            //sets up or down on
-            if (Input.GetButtonDown("Vertical"))
-            {
-                vertical = (int)Input.GetAxisRaw("Vertical");
-                   
-            }
-
-            if (Input.GetButtonDown("Confirm"))
-            {
-                
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
-
-
-                // If it hits something
-                if (hit.collider != null && hit.transform.GetComponent<MenuInfoSuppyCode>())
+                if(hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
                 {
-                    //print()
-                    hit.transform.GetComponent<MenuInfoSuppyCode>().FillMenu();
-                    //hit a player
-                    if (hit.transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                    if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
                     {
-                        //make unit stat menu appear
-
                         //make unit avatar blink
-                        hit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
+                        hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().start_b();
 
                         //check if there is any key press, then close the menu
 
                         unitSelected = true;
-                        remainMov = hit.transform.GetComponent<StatsScript>().Mov;
+                        remainMov = hitAll[i].transform.GetComponent<StatsScript>().Mov;
                         //record the position
-                        currentPos = desPos = hit.transform.position;
+                        currentPos = desPos = hitAll[i].transform.position;
+
+                        print(hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().name);
+
+                        return;
                     }
-                    else
-                    {
-                        //opens menus
-                        canvas.GetComponent<MenuController>().UpdateMenu(true);
-
-                        //disables cursor movement
-                        lockMovement = true;
-
-                    }
+                }
             }
-                
+            //if no characters under the cursor continues
 
-            }
+            //opens menus
+            canvas.GetComponent<MenuController>().UpdateMenu(true);
 
-            if (Input.GetButtonDown("Return"))
+            //disables cursor movement
+            lockMovement = true;
+
+            
+
+
+        }
+
+        if (Input.GetButtonDown("Return"))
+        {
+            //closes the menus currently visible
+            canvas.GetComponent<MenuController>().UpdateMenu(false);
+
+            //enables cursor movement
+            lockMovement = false;
+            if (unitSelected)
             {
-                //closes the menus currently visible
-                canvas.GetComponent<MenuController>().UpdateMenu(false);
-
-                //enables cursor movement
-                    lockMovement = false;
-                if (unitSelected)
-                {
-                    unitSelected = false;
-                    RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
-                    hit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
+                unitSelected = false;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
+                hit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
                 //totalSteps = 0;
                 totalSteps = new Vector3(0, 0, 0);
 
-                }
             }
+        }
     }
 
     private void MovementUpdate()
     {
-        if(horizontal != 0 || vertical != 0)
+        if (horizontal != 0 || vertical != 0)
         {
             //turns cursor back on
             if (!gameObject.GetComponent<SpriteRenderer>().enabled)
@@ -144,11 +144,11 @@ public class CursorMovementScript : MonoBehaviour
         {
             horizontal = 0;
         }
-        if (gameObject.transform.position.y + vertical <= -2.5 || gameObject.transform.position.y+vertical >= 13.5)
+        if (gameObject.transform.position.y + vertical <= -2.5 || gameObject.transform.position.y + vertical >= 13.5)
         {
             vertical = 0;
         }
-        
+
         //check to see if movement range is possible
         if (unitSelected)
         {
@@ -166,7 +166,7 @@ public class CursorMovementScript : MonoBehaviour
                 totalSteps = desPos - currentPos;
             }
             //y boundary
-            if (!((desPos.y + vertical <= currentPos.y + remainMov)&& (desPos.y + vertical >= currentPos.y - remainMov) && (Mathf.Abs(totalSteps.x) + Mathf.Abs(totalSteps.y) <= remainMov)))
+            if (!((desPos.y + vertical <= currentPos.y + remainMov) && (desPos.y + vertical >= currentPos.y - remainMov) && (Mathf.Abs(totalSteps.x) + Mathf.Abs(totalSteps.y) <= remainMov)))
             {
                 vertical = 0;
             }
@@ -178,10 +178,10 @@ public class CursorMovementScript : MonoBehaviour
         }
         //moves the cursor once then stops additional movement
         gameObject.transform.position += new Vector3(horizontal, vertical, 0);
-        
-        
+
+
         horizontal = vertical = 0;
 
-        
+
     }
 }

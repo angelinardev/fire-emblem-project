@@ -32,14 +32,14 @@ public class MenuInfoSuppyCode : MonoBehaviour
 
     public void FillMenu()
     {
-        print(transform.name);
-        if(interaction == Interaction.Player)
-        {
-            if(gameObject.GetComponent<StatsScript>())
-            {
-                print(gameObject.GetComponent<StatsScript>().name + " is currently at " + gameObject.GetComponent<StatsScript>().Lvl);
-            }
-        }
+        //print(transform.name);
+        //if(interaction == Interaction.Player)
+        //{
+        //    if(gameObject.GetComponent<StatsScript>())
+        //    {
+        //        print(gameObject.GetComponent<StatsScript>().name + " is currently at " + gameObject.GetComponent<StatsScript>().Lvl);
+        //    }
+        //}
     }
 
     // Update is called once per frame

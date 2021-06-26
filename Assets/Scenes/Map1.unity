@@ -222,6 +222,11 @@ MonoBehaviour:
   blinkSpeed: 0.4
   canvas: {fileID: 698943353}
   lockMovement: 0
+  unitSelected: 0
+  remainMov: 0
+  currentPos: {x: 0, y: 0, z: 0}
+  desPos: {x: 0, y: 0, z: 0}
+  totalSteps: {x: 0, y: 0, z: 0}
 --- !u!1 &191518589
 GameObject:
   m_ObjectHideFlags: 0
