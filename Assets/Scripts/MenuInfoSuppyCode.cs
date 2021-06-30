@@ -14,7 +14,9 @@ public class MenuInfoSuppyCode : MonoBehaviour
         Enemy,
         Water,
         Mountain,
-        Hill
+        Hill,
+        House,
+        Fortress
     }
     
     public void Blink()

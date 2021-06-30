@@ -194,7 +194,7 @@ public class CursorMovementScript : MonoBehaviour
                             vertical = 0;
                             break;
                         }
-                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Building)
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.House)
                         {
                             horizontal = 0;
                             vertical = 0;
