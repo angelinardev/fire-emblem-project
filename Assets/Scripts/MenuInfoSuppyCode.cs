@@ -11,7 +11,10 @@ public class MenuInfoSuppyCode : MonoBehaviour
         Building,
         Terrain,
         Player,
-        Enemy
+        Enemy,
+        Water,
+        Mountain,
+        Hill
     }
     
     public void Blink()
@@ -28,6 +31,7 @@ public class MenuInfoSuppyCode : MonoBehaviour
     public void stop_b()
     {
         CancelInvoke("Blink");
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public void FillMenu()
