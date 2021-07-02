@@ -98,19 +98,19 @@ public class CursorMovementScript : MonoBehaviour
 
                         return;
                     }
+
                 }
             }
             //if no characters under the cursor continues
 
-            //opens menus
-            canvas.GetComponent<MenuController>().UpdateMenu(true);
+            if(!unitSelected)
+            {
+                //opens menus
+                canvas.GetComponent<MenuController>().UpdateMenu(true);
 
-            //disables cursor movement
-            lockMovement = true;
-
-            
-
-
+                //disables cursor movement
+                lockMovement = true;
+            }
         }
 
         if (Input.GetButtonDown("Return"))
@@ -158,6 +158,8 @@ public class CursorMovementScript : MonoBehaviour
             RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position + newPos, Vector2.zero);
             //check for special class properties
             //flying uniys bypass restrictions
+            
+
             if (unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Pegasus_Knight || unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Wyvern_Knight)
             {
                 //
@@ -170,7 +172,7 @@ public class CursorMovementScript : MonoBehaviour
                     {
                         if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Water)
                         {
-                            if (!(unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Pirate))
+                            if ((unit.transform.GetComponent<StatsScript>().classes != StatsScript.Classes.Pirate))
                             {
                                 horizontal = 0;
                                 vertical = 0;
@@ -225,10 +227,32 @@ public class CursorMovementScript : MonoBehaviour
         }
         //moves the cursor once then stops additional movement
         gameObject.transform.position += new Vector3(horizontal, vertical, 0);
-
-
+        
         horizontal = vertical = 0;
-
-
     }
+
+
+    ////notes
+    /*
+     * A - sub menu with basic character info
+     * name class level hp
+     * B- deselects character
+     * Arrows - hide menu
+     * 
+     * A - again
+     * menu with specific stats/ char portrait
+     * B - hide menus
+     * 
+     * 
+     * Moving character - 
+     * B - orginal character and cursor pos delselects character
+     * 
+     * 
+     * 
+     * A - the continuation/ end movement
+     * /attack/ /special actions/ item wait
+     * B - return to original position and opens first menu
+     * 
+     * 
+     * */
 }
