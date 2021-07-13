@@ -24,6 +24,10 @@ public class CursorMovementScript : MonoBehaviour
 
     public RaycastHit2D unit;
 
+    public bool charaMenu = false;
+    public bool charaMenu2 = false;
+    public bool charaMenu3 = false;
+
     private void Start()
     {
         //runs function Blink at the start and reruns it every 0.4 seconds by default
@@ -73,45 +77,67 @@ public class CursorMovementScript : MonoBehaviour
 
         if (Input.GetButtonDown("Confirm"))
         {
+            if (!charaMenu)
 
-            //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
-            RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
+            { //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
+                RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
 
-            for(int i = 0; i < hitAll.Length; i++)
-            {
-                if(hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
+                for (int i = 0; i < hitAll.Length; i++)
                 {
-                    if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                    if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
                     {
-                        unit = hitAll[i];
-                        //make unit avatar blink
-                        unit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                        {
+                            unit = hitAll[i];
+                            //make unit avatar blink
+                            unit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
 
-                        //check if there is any key press, then close the menu
+                            //check if there is any key press, then close the menu
 
-                        unitSelected = true;
-                        remainMov = unit.transform.GetComponent<StatsScript>().Mov;
-                        //record the position
-                        currentPos = desPos = unit.transform.position;
+                            unitSelected = true;
 
-                        print(hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().name);
+                            //bring up the menu
+                            charaMenu = true;
+                            remainMov = unit.transform.GetComponent<StatsScript>().Mov;
+                            //record the position
+                            currentPos = desPos = unit.transform.position;
 
-                        return;
+                            print(hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().name);
+
+                            return;
+                        }
+
                     }
+                }
+                //if no characters under the cursor continues
 
+                if (!unitSelected)
+                {
+                    //opens menus
+                    canvas.GetComponent<MenuController>().UpdateMenu(true);
+
+                    //disables cursor movement
+                    lockMovement = true;
                 }
             }
-            //if no characters under the cursor continues
 
-            if(!unitSelected)
+            else if (charaMenu)
             {
-                //opens menus
-                canvas.GetComponent<MenuController>().UpdateMenu(true);
-
-                //disables cursor movement
-                lockMovement = true;
+                charaMenu2 = true;
+                charaMenu = false;
             }
+            if (charaMenu2)
+            {
+                charaMenu2 = false;
+                charaMenu3 = true;
+            }
+            if (charaMenu3)
+            {
+                //more complex
+            }
+
         }
+        
 
         if (Input.GetButtonDown("Return"))
         {
@@ -122,13 +148,43 @@ public class CursorMovementScript : MonoBehaviour
             lockMovement = false;
             if (unitSelected)
             {
-                
-                unitSelected = false;
-                //totalSteps = 0;
-                totalSteps = new Vector3(0, 0, 0);
-                unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();  
+                if (charaMenu)
+                {
+                    charaMenu = false;
+                    unitSelected = false;
+                    //totalSteps = 0;
+                    totalSteps = new Vector3(0, 0, 0);
+                    unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
+                    snapBack();
+                }
+                else if (charaMenu2)
+                {
+                    charaMenu2 = false;
+                }
+                else if (charaMenu3)
+                {
+                    charaMenu3 = false;
+                    charaMenu = true;
+                    //pos reset
+                    snapBack();
+                    totalSteps = new Vector3(0, 0, 0);
+                }
+                else if (!charaMenu && !charaMenu2 && !charaMenu3)
+                {
+                    unitSelected = false;
+                    //totalSteps = 0;
+                    totalSteps = new Vector3(0, 0, 0);
+                    unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
+                    snapBack();
+                }
+
             }
         }
+    }
+
+    private void snapBack()
+    {
+        gameObject.transform.position = currentPos;
     }
 
     private void MovementUpdate()
@@ -211,7 +267,7 @@ public class CursorMovementScript : MonoBehaviour
             totalSteps = desPos - currentPos;
             //some algorithm
             //check how many spaces can be moved
-            if (!((Mathf.Abs(totalSteps.x+horizontal)  + Mathf.Abs(totalSteps.y+vertical) < remainMov)))
+            if (!((Mathf.Abs(totalSteps.x+horizontal)  + Mathf.Abs(totalSteps.y+vertical) <= remainMov)))
             {
                 horizontal = 0;
                 vertical = 0;
