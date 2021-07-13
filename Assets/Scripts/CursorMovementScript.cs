@@ -24,13 +24,17 @@ public class CursorMovementScript : MonoBehaviour
 
     public RaycastHit2D unit;
 
+    public bool charaMenu = false;
+    public bool charaMenu2 = false;
+    public bool charaMenu3 = false;
+
     private void Start()
     {
-        //runs function Blink at the start and reruns it every 0.4 seconds by default
+        //runs function Blink at the start and reruns it every 0.4 seconds by default 
         InvokeRepeating("Blink", 0, blinkSpeed);
     }
 
-    // Update is called once per frame
+    // Update is called once per frame 
     void Update()
     {
         Controls();
@@ -38,13 +42,13 @@ public class CursorMovementScript : MonoBehaviour
 
     void Blink()
     {
-        //turns cursor on and off
+        //turns cursor on and off 
         gameObject.GetComponent<SpriteRenderer>().enabled = !gameObject.GetComponent<SpriteRenderer>().enabled;
     }
 
     private void FixedUpdate()
     {
-        //stops all cursor movement and removes stored movement
+        //stops all cursor movement and removes stored movement 
         if (lockMovement)
         {
             horizontal = vertical = 0;
@@ -57,91 +61,161 @@ public class CursorMovementScript : MonoBehaviour
 
     private void Controls()
     {
-        //sets left or right on
+        //sets left or right on 
         if (Input.GetButtonDown("Horizontal"))
         {
 
             horizontal = (int)Input.GetAxisRaw("Horizontal");
         }
 
-        //sets up or down on
+        //sets up or down on 
         if (Input.GetButtonDown("Vertical"))
         {
             vertical = (int)Input.GetAxisRaw("Vertical");
 
         }
-
-        if (Input.GetButtonDown("Confirm"))
+        if (horizontal != 0 || vertical != 0)
         {
-
-            //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
-            RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
-
-            for(int i = 0; i < hitAll.Length; i++)
+            if (canvas.GetComponent<MenuController>().inUse && (canvas.GetComponent<MenuController>().currentMenu != MenuController.Menus.commands && canvas.GetComponent<MenuController>().currentMenu != MenuController.Menus.confirmation))
             {
-                if(hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
-                {
-                    if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
-                    {
-                        unit = hitAll[i];
-                        //make unit avatar blink
-                        unit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
-
-                        //check if there is any key press, then close the menu
-
-                        unitSelected = true;
-                        remainMov = unit.transform.GetComponent<StatsScript>().Mov;
-                        //record the position
-                        currentPos = desPos = unit.transform.position;
-
-                        print(hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().name);
-
-                        return;
-                    }
-
-                }
-            }
-            //if no characters under the cursor continues
-
-            if(!unitSelected)
-            {
-                //opens menus
-                canvas.GetComponent<MenuController>().UpdateMenu(true);
-
-                //disables cursor movement
-                lockMovement = true;
+                canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.detailedInfo;
+                canvas.GetComponent<MenuController>().HideMenus();
             }
         }
+        if (!charaMenu)
+        {
+            if (Input.GetButtonDown("Confirm") && !canvas.GetComponent<MenuController>().inUse)
+            {
+
+                //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up); 
+                RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
+
+                for (int i = 0; i < hitAll.Length; i++)
+                {
+                    if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
+                    {
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                        {
+                            unit = hitAll[i];
+                            //make unit avatar blink 
+                            unit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
+
+                            //check if there is any key press, then close the menu 
+
+                            unitSelected = true;
+                            canvas.GetComponent<MenuController>().UpdateMenu(unit.transform.GetComponent<StatsScript>());
+
+                            remainMov = unit.transform.GetComponent<StatsScript>().Mov;
+                            //record the position 
+                            currentPos = desPos = unit.transform.position;
+
+                            print(hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().name);
+
+                            return;
+                        }
+
+                    }
+                }
+                //if no characters under the cursor continues 
+
+                if (!unitSelected)
+                {
+                    canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.commands);
+                    //disables cursor movement 
+                    lockMovement = true;
+                }
+
+                else if (charaMenu)
+                {
+                    charaMenu2 = true;
+                    charaMenu = false;
+                }
+                if (charaMenu2)
+                {
+                    charaMenu2 = false;
+                    charaMenu3 = true;
+                }
+                if (charaMenu3)
+                {
+                    //more complex  
+                }
+
+            }
+            else if (Input.GetButtonDown("Confirm"))
+            {
+                if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.basicinfo)
+                {
+                    canvas.GetComponent<MenuController>().UpdateMenu(true);
+                }
+                else
+                {
+                    lockMovement = true;
+                    canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.confirmation);
+                }
+            }
+        }
+
 
         if (Input.GetButtonDown("Return"))
         {
-            //closes the menus currently visible
-            canvas.GetComponent<MenuController>().UpdateMenu(false);
+            //closes the menus currently visible 
 
-            //enables cursor movement
+            canvas.GetComponent<MenuController>().CloseMenus();
+            canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.basicinfo;
+
+            //enables cursor movement 
             lockMovement = false;
             if (unitSelected)
             {
-                
-                unitSelected = false;
-                //totalSteps = 0;
-                totalSteps = new Vector3(0, 0, 0);
-                unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();  
+                if (charaMenu)
+                {
+                    charaMenu = false;
+                    unitSelected = false;
+                    //totalSteps = 0;  
+                    totalSteps = new Vector3(0, 0, 0);
+                    unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
+                    snapBack();
+                }
+                else if (charaMenu2)
+                {
+                    charaMenu2 = false;
+                }
+                else if (charaMenu3)
+                {
+                    charaMenu3 = false;
+                    charaMenu = true;
+                    //pos reset  
+                    snapBack();
+                    totalSteps = new Vector3(0, 0, 0);
+                }
+                else if (!charaMenu && !charaMenu2 && !charaMenu3)
+                {
+                    unitSelected = false;
+                    //totalSteps = 0;  
+                    totalSteps = new Vector3(0, 0, 0);
+                    unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
+                    snapBack();
+                }
             }
         }
+    }
+
+    private void snapBack()
+    {
+        gameObject.transform.position = currentPos;
     }
 
     private void MovementUpdate()
     {
         if (horizontal != 0 || vertical != 0)
         {
-            //turns cursor back on
+            //turns cursor back on 
             if (!gameObject.GetComponent<SpriteRenderer>().enabled)
             {
                 gameObject.GetComponent<SpriteRenderer>().enabled = true;
             }
         }
-        //don't move past boundaries
+        //don't move past boundaries 
         if (gameObject.transform.position.x + horizontal <= -22.5 || gameObject.transform.position.x + horizontal >= 9.5)
         {
             horizontal = 0;
@@ -151,21 +225,21 @@ public class CursorMovementScript : MonoBehaviour
             vertical = 0;
         }
 
-        //check to see if movement range is possible
+        //check to see if movement range is possible 
         if (unitSelected)
         {
             Vector3 newPos = new Vector3(horizontal, vertical, 0);
             RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position + newPos, Vector2.zero);
-            //check for special class properties
-            //flying uniys bypass restrictions
-            
+            //check for special class properties 
+            //flying uniys bypass restrictions 
+
 
             if (unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Pegasus_Knight || unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Wyvern_Knight)
             {
-                //
+                // 
             }
             else
-            {//check for tiles that cant be traversed
+            {//check for tiles that cant be traversed 
                 for (int i = 0; i < hitAll.Length; i++)
                 {
                     if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
@@ -181,8 +255,8 @@ public class CursorMovementScript : MonoBehaviour
 
                         }
                         if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Hill)
-                        {//horse units
-                            if(unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Paladin || unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Cavalier)
+                        {//horse units 
+                            if (unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Paladin || unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Cavalier)
                             {
                                 horizontal = 0;
                                 vertical = 0;
@@ -190,7 +264,7 @@ public class CursorMovementScript : MonoBehaviour
                             }
 
                         }
-                       if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Mountain)
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Mountain)
                         {
                             horizontal = 0;
                             vertical = 0;
@@ -206,53 +280,53 @@ public class CursorMovementScript : MonoBehaviour
                     }
                 }
             }
-            
-            //determine the number of steps taken by taking the difference between the destination position and the current position
+
+            //determine the number of steps taken by taking the difference between the destination position and the current position 
             totalSteps = desPos - currentPos;
-            //some algorithm
-            //check how many spaces can be moved
-            if (!((Mathf.Abs(totalSteps.x+horizontal)  + Mathf.Abs(totalSteps.y+vertical) < remainMov)))
+            //some algorithm 
+            //check how many spaces can be moved 
+            if (!((Mathf.Abs(totalSteps.x + horizontal) + Mathf.Abs(totalSteps.y + vertical) <= remainMov)))
             {
                 horizontal = 0;
                 vertical = 0;
             }
-            else //success
+            else //success 
             {
-                //increment to get to possible grid space
+                //increment to get to possible grid space 
                 desPos.x += horizontal;
                 desPos.y += vertical;
-                
+
 
             }
         }
-        //moves the cursor once then stops additional movement
+        //moves the cursor once then stops additional movement 
         gameObject.transform.position += new Vector3(horizontal, vertical, 0);
-        
+
         horizontal = vertical = 0;
     }
 
 
-    ////notes
-    /*
-     * A - sub menu with basic character info
-     * name class level hp
-     * B- deselects character
-     * Arrows - hide menu
-     * 
-     * A - again
-     * menu with specific stats/ char portrait
-     * B - hide menus
-     * 
-     * 
-     * Moving character - 
-     * B - orginal character and cursor pos delselects character
-     * 
-     * 
-     * 
-     * A - the continuation/ end movement
-     * /attack/ /special actions/ item wait
-     * B - return to original position and opens first menu
-     * 
-     * 
+    ////notes 
+    /* 
+     * A - sub menu with basic character info 
+     * name class level hp 
+     * B- deselects character 
+     * Arrows - hide menu 
+     *  
+     * A - again 
+     * menu with specific stats/ char portrait 
+     * B - hide menus 
+     *  
+     *  
+     * Moving character -  
+     * B - orginal character and cursor pos delselects character 
+     *  
+     *  
+     *  
+     * A - the continuation/ end movement 
+     * /attack/ /special actions/ item wait 
+     * B - return to original position and opens first menu 
+     *  
+     *  
      * */
 }
