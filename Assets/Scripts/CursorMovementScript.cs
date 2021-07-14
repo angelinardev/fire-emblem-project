@@ -205,6 +205,11 @@ public class CursorMovementScript : MonoBehaviour
         gameObject.transform.position = currentPos;
     }
 
+    private void charaMove()
+    {
+
+    }
+
     private void MovementUpdate()
     {
         if (horizontal != 0 || vertical != 0)
