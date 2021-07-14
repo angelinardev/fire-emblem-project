@@ -997,6 +997,10 @@ MonoBehaviour:
   - 0.7
   - 0.2
   - 0
+  canMove: 1
+  endTurn: {fileID: -9101352074672444546, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 9024285080793117464, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 0
 --- !u!114 &191518594
 MonoBehaviour:
@@ -1177,6 +1181,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -7000961928273422150, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 489544660151152255, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 3
 --- !u!61 &215164710
 BoxCollider2D:
@@ -1357,6 +1365,9 @@ MonoBehaviour:
   - 0.4
   - 0.1
   - 0
+  canMove: 1
+  endTurn: {fileID: 4011853884991142487, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
+  normal: {fileID: -5314514638507712793, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 7
 --- !u!61 &235109544
 BoxCollider2D:
@@ -1616,7 +1627,11 @@ MonoBehaviour:
   - 0.2
   - 0.1
   - 0
-  classes: 0
+  canMove: 1
+  endTurn: {fileID: -7122849881134843308, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: -3183789057854419669, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
+  classes: 13
 --- !u!61 &341558237
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1796,6 +1811,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &345975719
 BoxCollider2D:
@@ -2942,7 +2961,10 @@ MonoBehaviour:
   - 0.1
   - 0
   - 0
-  classes: 0
+  canMove: 1
+  endTurn: {fileID: 1524666244727125408, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
+  normal: {fileID: -3689117881708867746, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
+  classes: 19
 --- !u!212 &552222721
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3149,7 +3171,10 @@ MonoBehaviour:
   - 0.4
   - 0.2
   - 0
-  classes: 0
+  canMove: 1
+  endTurn: {fileID: 3843785763985060568, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
+  normal: {fileID: -4722325071551593210, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
+  classes: 11
 --- !u!61 &560778130
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3329,6 +3354,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &605294780
 BoxCollider2D:
@@ -4117,6 +4146,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &774185947
 BoxCollider2D:
@@ -20308,6 +20341,10 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  canMove: 1
+  endTurn: {fileID: -3352864770757560986, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: -3760799851810059938, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 12
 --- !u!61 &836799654
 BoxCollider2D:
@@ -21159,6 +21196,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &1066168370
 BoxCollider2D:
@@ -25439,6 +25480,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &1179898458
 BoxCollider2D:
@@ -25619,6 +25664,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &1239646127
 BoxCollider2D:
@@ -26060,6 +26109,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &1424747187
 BoxCollider2D:
@@ -26240,7 +26293,10 @@ MonoBehaviour:
   - 0.5
   - 0.2
   - 0
-  classes: 0
+  canMove: 1
+  endTurn: {fileID: 3843785763985060568, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
+  normal: {fileID: -4722325071551593210, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
+  classes: 11
 --- !u!61 &1471695715
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26420,7 +26476,11 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  classes: 7
+  canMove: 1
+  endTurn: {fileID: -4017541595262862867, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 7261798781941144635, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
+  classes: 9
 --- !u!61 &1477202711
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26679,6 +26739,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &1552581250
 BoxCollider2D:
@@ -26859,6 +26923,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &1557361502
 BoxCollider2D:
@@ -27247,6 +27315,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &1682167248
 BoxCollider2D:
@@ -27427,6 +27499,9 @@ MonoBehaviour:
   - 0.7
   - 0.2
   - 0
+  canMove: 1
+  endTurn: {fileID: 2517215129787470863, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
+  normal: {fileID: -7964763973103502142, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 15
 --- !u!61 &1696284119
 BoxCollider2D:
@@ -28192,6 +28267,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &2017141290
 BoxCollider2D:
@@ -28372,6 +28451,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  canMove: 1
+  endTurn: {fileID: -4855795559096606218, guid: 58caba54f688c2b41868aabd37f7b3b8,
+    type: 3}
+  normal: {fileID: 1588808344463758571, guid: 58caba54f688c2b41868aabd37f7b3b8, type: 3}
   classes: 6
 --- !u!61 &2122192589
 BoxCollider2D:

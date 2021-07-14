@@ -66,12 +66,24 @@ public class CursorMovementScript : MonoBehaviour
         {
 
             horizontal = (int)Input.GetAxisRaw("Horizontal");
+            if (charaMenu || charaMenu2)
+            {
+                lockMovement = false;
+            }
+            charaMenu = false;
+            charaMenu2 = false;
         }
 
         //sets up or down on 
         if (Input.GetButtonDown("Vertical"))
         {
             vertical = (int)Input.GetAxisRaw("Vertical");
+            if (charaMenu || charaMenu2)
+            {
+                lockMovement = false;
+            }
+            charaMenu = false;
+            charaMenu2 = false;
 
         }
         if (horizontal != 0 || vertical != 0)
@@ -97,21 +109,26 @@ public class CursorMovementScript : MonoBehaviour
                         if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
                         {
                             unit = hitAll[i];
-                            //make unit avatar blink 
-                            unit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
+                            if (unit.transform.GetComponent<StatsScript>().canMove)
+                            {//make unit avatar blink 
+                                unit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
 
-                            //check if there is any key press, then close the menu 
+                                //check if there is any key press, then close the menu 
 
-                            unitSelected = true;
-                            canvas.GetComponent<MenuController>().UpdateMenu(unit.transform.GetComponent<StatsScript>());
+                                unitSelected = true;
+                                canvas.GetComponent<MenuController>().UpdateMenu(unit.transform.GetComponent<StatsScript>());
 
-                            remainMov = unit.transform.GetComponent<StatsScript>().Mov;
-                            //record the position 
-                            currentPos = desPos = unit.transform.position;
+                                remainMov = unit.transform.GetComponent<StatsScript>().Mov;
+                                //record the position 
+                                currentPos = desPos = unit.transform.position;
 
-                            print(hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().name);
+                                print(hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().name);
 
-                            return;
+                                charaMenu = true;
+                                lockMovement = true;
+
+                                return;
+                            }
                         }
 
                     }
@@ -188,7 +205,7 @@ public class CursorMovementScript : MonoBehaviour
                     snapBack();
                     totalSteps = new Vector3(0, 0, 0);
                 }
-                else if (!charaMenu && !charaMenu2 && !charaMenu3)
+                else if (!charaMenu && !charaMenu2 && !charaMenu3) //just a cancel movement
                 {
                     unitSelected = false;
                     //totalSteps = 0;  
@@ -196,6 +213,20 @@ public class CursorMovementScript : MonoBehaviour
                     unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
                     snapBack();
                 }
+            }
+        }
+        if (unitSelected && !charaMenu && !charaMenu2 && !charaMenu3)
+        {
+            //player wants to move
+            if (Input.GetButtonDown("Confirm"))
+            {
+                charaMove();
+                totalSteps = new Vector3(0, 0, 0);
+                unitSelected = false;
+                unit.transform.GetComponent<StatsScript>().canMove = false;
+                unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
+
+
             }
         }
     }
@@ -207,7 +238,13 @@ public class CursorMovementScript : MonoBehaviour
 
     private void charaMove()
     {
+        Vector3 stepcount = totalSteps.normalized;
+        //simply approach
+        unit.transform.position = desPos; //doesnt have animation for now
+        //animation?
 
+        //change sprite
+        unit.transform.GetComponent<SpriteRenderer>().sprite = unit.transform.GetComponent<StatsScript>().endTurn;
     }
 
     private void MovementUpdate()
@@ -241,7 +278,19 @@ public class CursorMovementScript : MonoBehaviour
 
             if (unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Pegasus_Knight || unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Wyvern_Knight)
             {
-                // 
+                //still need to check for enemies
+                for (int i = 0; i < hitAll.Length; i++)
+                {
+                    if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
+                    {
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy || hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                        {
+                            horizontal = 0;
+                            vertical = 0;
+                            break;
+                        }
+                    }
+                }
             }
             else
             {//check for tiles that cant be traversed 
@@ -269,13 +318,8 @@ public class CursorMovementScript : MonoBehaviour
                             }
 
                         }
-                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Mountain)
-                        {
-                            horizontal = 0;
-                            vertical = 0;
-                            break;
-                        }
-                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.House)
+                        //every condition where no one can traverse
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Mountain || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.House) || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy)|| hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
                         {
                             horizontal = 0;
                             vertical = 0;

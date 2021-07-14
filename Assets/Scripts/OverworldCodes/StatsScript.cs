@@ -22,6 +22,10 @@ public class StatsScript : MonoBehaviour
 
     private int exp;
 
+    public bool canMove = true;
+
+    public Sprite endTurn;
+    public Sprite normal;
     
     public enum Classes
     {
