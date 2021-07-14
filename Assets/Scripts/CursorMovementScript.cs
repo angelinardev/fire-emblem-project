@@ -28,6 +28,8 @@ public class CursorMovementScript : MonoBehaviour
     public bool charaMenu2 = false;
     public bool charaMenu3 = false;
 
+    List<int []> keypress;
+
     private void Start()
     {
         //runs function Blink at the start and reruns it every 0.4 seconds by default 
@@ -190,6 +192,7 @@ public class CursorMovementScript : MonoBehaviour
                     unitSelected = false;
                     //totalSteps = 0;  
                     totalSteps = new Vector3(0, 0, 0);
+                    keypress.Clear();
                     unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
                     snapBack();
                 }
@@ -204,12 +207,14 @@ public class CursorMovementScript : MonoBehaviour
                     //pos reset  
                     snapBack();
                     totalSteps = new Vector3(0, 0, 0);
+                    keypress.Clear();
                 }
                 else if (!charaMenu && !charaMenu2 && !charaMenu3) //just a cancel movement
                 {
                     unitSelected = false;
                     //totalSteps = 0;  
                     totalSteps = new Vector3(0, 0, 0);
+                    keypress.Clear();
                     unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
                     snapBack();
                 }
@@ -222,6 +227,7 @@ public class CursorMovementScript : MonoBehaviour
             {
                 charaMove();
                 totalSteps = new Vector3(0, 0, 0);
+                keypress.Clear();
                 unitSelected = false;
                 unit.transform.GetComponent<StatsScript>().canMove = false;
                 unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
@@ -347,6 +353,8 @@ public class CursorMovementScript : MonoBehaviour
 
 
             }
+            int[] presses = { horizontal, vertical };
+            keypress.Add(presses);
         }
         //moves the cursor once then stops additional movement 
         gameObject.transform.position += new Vector3(horizontal, vertical, 0);
