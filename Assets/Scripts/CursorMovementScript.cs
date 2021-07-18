@@ -28,18 +28,107 @@ public class CursorMovementScript : MonoBehaviour
     public bool charaMenu2 = false;
     public bool charaMenu3 = false;
 
-    List<int []> keypress;
+    /*
+     *will go on characters later just for testing purposes 
+     * 
+     */
+    public enum State
+    {
+        standing,
+        moving,
+        end
+    }
+
+    public State state;
+
+    public Vector3 
+        currentPosition, //position while unit is moving
+        originalPosition; // last position unit was moved to
+
+    private int 
+        keypressNum, // the "X" of movement
+        keypressPlacement; // the "Y" of movement
+
+    public float slideSpeed = 5f; // how fast characters move on screen
+    /* 
+    * 
+    * 
+    */
+
+    public List<int []> keypress = new List<int[]>();
 
     private void Start()
     {
         //runs function Blink at the start and reruns it every 0.4 seconds by default 
         InvokeRepeating("Blink", 0, blinkSpeed);
+        
     }
 
     // Update is called once per frame 
     void Update()
     {
         Controls();
+        print("list spot " + keypressPlacement + " location " + keypressNum);
+
+        switch (state)
+        {
+            case State.standing:
+                keypressPlacement = keypressNum = 0;
+                break;
+            case State.end:
+                break;
+            case State.moving:
+                
+                if(keypressNum >= keypress.Count)
+                {
+                    keypressPlacement = keypressNum = 0;
+                    keypress.Clear();
+                    state = State.end;
+                }
+                else if (keypressPlacement == 0)
+                {
+                    if (MoveUnit(new Vector3((originalPosition.x + keypress[keypressNum][keypressPlacement]), originalPosition.y, 0)))
+                    {
+                        keypressPlacement++;
+                    }
+                }
+                else if (keypressPlacement == 1)
+                {
+                    if (MoveUnit(new Vector3(originalPosition.x, (originalPosition.y + keypress[keypressNum][keypressPlacement]), 0)))
+                    {
+                        keypressNum++;
+                        keypressPlacement = 0;
+                    }
+                }
+                break;
+        }
+    }
+
+    /// <summary>
+    /// more testing
+    /// 
+    /// </summary>
+    public bool MoveUnit(Vector3 route)
+    {
+        currentPosition = unit.transform.position;
+
+        //moves the character torwards the next location
+        unit.transform.position += (route - currentPosition) * slideSpeed * Time.deltaTime;
+
+        //how close before unit snaps into place
+        float reachedDistance = 0.01f;
+
+        //if unit is close enough ends the movement
+        if (Vector3.Distance(currentPosition, route) < reachedDistance)
+        {
+            //reached target
+            unit.transform.position = route;
+            //sets next new position for movement
+            originalPosition = unit.transform.position;
+            return true;
+        }
+
+        return false;
     }
 
     void Blink()
@@ -194,7 +283,7 @@ public class CursorMovementScript : MonoBehaviour
                     totalSteps = new Vector3(0, 0, 0);
                     keypress.Clear();
                     unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
-                    snapBack();
+                    SnapBack();
                 }
                 else if (charaMenu2)
                 {
@@ -205,7 +294,7 @@ public class CursorMovementScript : MonoBehaviour
                     charaMenu3 = false;
                     charaMenu = true;
                     //pos reset  
-                    snapBack();
+                    SnapBack();
                     totalSteps = new Vector3(0, 0, 0);
                     keypress.Clear();
                 }
@@ -216,7 +305,7 @@ public class CursorMovementScript : MonoBehaviour
                     totalSteps = new Vector3(0, 0, 0);
                     keypress.Clear();
                     unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
-                    snapBack();
+                    SnapBack();
                 }
             }
         }
@@ -225,28 +314,28 @@ public class CursorMovementScript : MonoBehaviour
             //player wants to move
             if (Input.GetButtonDown("Confirm"))
             {
-                charaMove();
+                originalPosition = unit.transform.position;
+                state = State.moving;
+                CharaMove();
+
                 totalSteps = new Vector3(0, 0, 0);
-                keypress.Clear();
+                //keypress.Clear();
                 unitSelected = false;
                 unit.transform.GetComponent<StatsScript>().canMove = false;
                 unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
-
-
             }
         }
     }
 
-    private void snapBack()
+    private void SnapBack()
     {
         gameObject.transform.position = currentPos;
     }
 
-    private void charaMove()
+    private void CharaMove()
     {
-        Vector3 stepcount = totalSteps.normalized;
         //simply approach
-        unit.transform.position = desPos; //doesnt have animation for now
+        //unit.transform.position = desPos; //doesnt have animation for now
         //animation?
 
         //change sprite
@@ -353,8 +442,12 @@ public class CursorMovementScript : MonoBehaviour
 
 
             }
-            int[] presses = { horizontal, vertical };
-            keypress.Add(presses);
+            if( horizontal != 0 || vertical != 0)
+            {
+                int[] presses = { horizontal, vertical };
+                keypress.Add(presses);
+            }
+            
         }
         //moves the cursor once then stops additional movement 
         gameObject.transform.position += new Vector3(horizontal, vertical, 0);
