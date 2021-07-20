@@ -41,9 +41,9 @@ public class CursorMovementScript : MonoBehaviour
 
     public State state;
 
-    public Vector3 
-        currentPosition, //position while unit is moving
-        originalPosition; // last position unit was moved to
+    public Vector3
+        currentPosition; //position while unit is moving
+       // last position unit was moved to
 
     private int 
         keypressNum, // the "X" of movement
@@ -87,14 +87,14 @@ public class CursorMovementScript : MonoBehaviour
                 }
                 else if (keypressPlacement == 0)
                 {
-                    if (MoveUnit(new Vector3((originalPosition.x + keypress[keypressNum][keypressPlacement]), originalPosition.y, 0)))
+                    if (MoveUnit(new Vector3((currentPos.x + keypress[keypressNum][keypressPlacement]), currentPos.y, 0)))
                     {
                         keypressPlacement++;
                     }
                 }
                 else if (keypressPlacement == 1)
                 {
-                    if (MoveUnit(new Vector3(originalPosition.x, (originalPosition.y + keypress[keypressNum][keypressPlacement]), 0)))
+                    if (MoveUnit(new Vector3(currentPos.x, (currentPos.y + keypress[keypressNum][keypressPlacement]), 0)))
                     {
                         keypressNum++;
                         keypressPlacement = 0;
@@ -114,6 +114,7 @@ public class CursorMovementScript : MonoBehaviour
 
         //moves the character torwards the next location
         unit.transform.position += (route - currentPosition) * slideSpeed * Time.deltaTime;
+        //unit.rigidbody.velocity.Set(10, 10);
 
         //how close before unit snaps into place
         float reachedDistance = 0.01f;
@@ -124,7 +125,7 @@ public class CursorMovementScript : MonoBehaviour
             //reached target
             unit.transform.position = route;
             //sets next new position for movement
-            originalPosition = unit.transform.position;
+            currentPos = unit.transform.position;
             return true;
         }
 
@@ -314,7 +315,7 @@ public class CursorMovementScript : MonoBehaviour
             //player wants to move
             if (Input.GetButtonDown("Confirm"))
             {
-                originalPosition = unit.transform.position;
+                currentPos = unit.transform.position;
                 state = State.moving;
                 CharaMove();
 
