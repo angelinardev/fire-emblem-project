@@ -42,10 +42,10 @@ public class CursorMovementScript : MonoBehaviour
     public State state;
 
     public Vector3
-        currentPosition; //position while unit is moving
-       // last position unit was moved to
+        currentPosition; //position while unit is moving 
+                         // last position unit was moved to 
 
-    private int 
+    private int
         keypressNum, // the "X" of movement
         keypressPlacement; // the "Y" of movement
 
@@ -55,13 +55,13 @@ public class CursorMovementScript : MonoBehaviour
     * 
     */
 
-    public List<int []> keypress = new List<int[]>();
+    public List<int[]> keypress = new List<int[]>();
 
     private void Start()
     {
         //runs function Blink at the start and reruns it every 0.4 seconds by default 
         InvokeRepeating("Blink", 0, blinkSpeed);
-        
+
     }
 
     // Update is called once per frame 
@@ -78,8 +78,8 @@ public class CursorMovementScript : MonoBehaviour
             case State.end:
                 break;
             case State.moving:
-                
-                if(keypressNum >= keypress.Count)
+
+                if (keypressNum >= keypress.Count)
                 {
                     keypressPlacement = keypressNum = 0;
                     keypress.Clear();
@@ -114,8 +114,7 @@ public class CursorMovementScript : MonoBehaviour
 
         //moves the character torwards the next location
         unit.transform.position += (route - currentPosition) * slideSpeed * Time.deltaTime;
-        //unit.rigidbody.velocity.Set(10, 10);
-
+        //unit.rigidbody.velocity.Set(10, 10); 
         //how close before unit snaps into place
         float reachedDistance = 0.01f;
 
@@ -186,83 +185,82 @@ public class CursorMovementScript : MonoBehaviour
                 canvas.GetComponent<MenuController>().HideMenus();
             }
         }
-        if (!charaMenu)
+        //if (!charaMenu)
+        //{
+        if (Input.GetButtonDown("Confirm") && !canvas.GetComponent<MenuController>().inUse)
         {
-            if (Input.GetButtonDown("Confirm") && !canvas.GetComponent<MenuController>().inUse)
+
+            //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up); 
+            RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
+
+            for (int i = 0; i < hitAll.Length; i++)
             {
-
-                //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up); 
-                RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
-
-                for (int i = 0; i < hitAll.Length; i++)
+                if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
                 {
-                    if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
+                    if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
                     {
-                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                        unit = hitAll[i];
+                        if (unit.transform.GetComponent<StatsScript>().canMove)
                         {
-                            unit = hitAll[i];
-                            if (unit.transform.GetComponent<StatsScript>().canMove)
-                            {//make unit avatar blink 
-                                unit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
+                            //make unit avatar blink 
+                            unit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
 
-                                //check if there is any key press, then close the menu 
+                            //check if there is any key press, then close the menu 
 
-                                unitSelected = true;
-                                canvas.GetComponent<MenuController>().UpdateMenu(unit.transform.GetComponent<StatsScript>());
+                            unitSelected = true;
+                            canvas.GetComponent<MenuController>().UpdateMenu(unit.transform.GetComponent<StatsScript>());
 
-                                remainMov = unit.transform.GetComponent<StatsScript>().Mov;
-                                //record the position 
-                                currentPos = desPos = unit.transform.position;
+                            remainMov = unit.transform.GetComponent<StatsScript>().Mov;
+                            //record the position 
+                            currentPos = desPos = unit.transform.position;
 
-                                print(hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().name);
+                            charaMenu = true;
+                            lockMovement = true;
 
-                                charaMenu = true;
-                                lockMovement = true;
-
-                                return;
-                            }
+                            return;
                         }
-
                     }
-                }
-                //if no characters under the cursor continues 
 
-                if (!unitSelected)
-                {
-                    canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.commands);
-                    //disables cursor movement 
-                    lockMovement = true;
                 }
-
-                else if (charaMenu)
-                {
-                    charaMenu2 = true;
-                    charaMenu = false;
-                }
-                if (charaMenu2)
-                {
-                    charaMenu2 = false;
-                    charaMenu3 = true;
-                }
-                if (charaMenu3)
-                {
-                    //more complex  
-                }
-
             }
-            else if (Input.GetButtonDown("Confirm"))
+            //if no characters under the cursor continues 
+
+            if (!unitSelected)
             {
-                if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.basicinfo)
-                {
-                    canvas.GetComponent<MenuController>().UpdateMenu(true);
-                }
-                else
-                {
-                    lockMovement = true;
-                    canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.confirmation);
-                }
+                canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.commands);
+                //disables cursor movement 
+                lockMovement = true;
+            }
+
+            else if (charaMenu)
+            {
+                charaMenu2 = true;
+                charaMenu = false;
+            }
+            if (charaMenu2)
+            {
+                charaMenu2 = false;
+                charaMenu3 = true;
+            }
+            if (charaMenu3)
+            {
+                //more complex  
+            }
+
+        }
+        else if (Input.GetButtonDown("Confirm"))
+        {
+            if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.basicinfo)
+            {
+                canvas.GetComponent<MenuController>().UpdateMenu(true);
+            }
+            else
+            {
+                lockMovement = true;
+                canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.confirmation);
             }
         }
+        //}
 
 
         if (Input.GetButtonDown("Return"))
@@ -415,7 +413,7 @@ public class CursorMovementScript : MonoBehaviour
 
                         }
                         //every condition where no one can traverse
-                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Mountain || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.House) || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy)|| hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Mountain || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.House) || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy) || hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
                         {
                             horizontal = 0;
                             vertical = 0;
@@ -443,12 +441,12 @@ public class CursorMovementScript : MonoBehaviour
 
 
             }
-            if( horizontal != 0 || vertical != 0)
+            if (horizontal != 0 || vertical != 0)
             {
                 int[] presses = { horizontal, vertical };
                 keypress.Add(presses);
             }
-            
+
         }
         //moves the cursor once then stops additional movement 
         gameObject.transform.position += new Vector3(horizontal, vertical, 0);

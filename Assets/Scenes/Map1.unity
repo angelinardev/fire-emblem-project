@@ -366,12 +366,8 @@ MonoBehaviour:
   charaMenu2: 0
   charaMenu3: 0
   state: 0
-  moveTargetPosition: {x: 0, y: 0, z: 0}
-  movingChar: {fileID: 191518589}
   currentPosition: {x: 0, y: 0, z: 0}
-  locations:
-  - location: 0500000005000000
-  - location: 0600000006000000
+  slideSpeed: 25
 --- !u!61 &55203291
 BoxCollider2D:
   m_ObjectHideFlags: 0
