@@ -295,6 +295,7 @@ public class CursorMovementScript : MonoBehaviour
             }
             if (charaMenu3)
             {
+                lockMovement = true;
                 //more complex  
             }
         }
@@ -323,7 +324,7 @@ public class CursorMovementScript : MonoBehaviour
             print(unitSelected);
             if (unitSelected)
             {
-                SnapBack();
+                
                 print("return");
                 if (charaMenu)
                 {
@@ -333,11 +334,13 @@ public class CursorMovementScript : MonoBehaviour
                     totalSteps = new Vector3(0, 0, 0);
                     keypress.Clear();
                     unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
-                    
+                    SnapBack();
                 }
                 else if (charaMenu2)
                 {
                     charaMenu2 = false;
+                    lockMovement = true;
+                    
                 }
                 else if (charaMenu3)
                 {
@@ -380,8 +383,8 @@ public class CursorMovementScript : MonoBehaviour
                 noMenu = false;
                 currentPos = unit.transform.position;
                 state = State.moving;
-                //EndTurn();
-
+                EndTurn();
+               
                 totalSteps = new Vector3(0, 0, 0);
                 //keypress.Clear();
                 unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
