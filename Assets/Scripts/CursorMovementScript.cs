@@ -19,6 +19,7 @@ public class CursorMovementScript : MonoBehaviour
 
     public Vector3 currentPos;
     public Vector3 desPos;
+    public Vector3 startPos;
 
     public Vector3 totalSteps = new Vector3(0, 0, 0);
 
@@ -28,6 +29,8 @@ public class CursorMovementScript : MonoBehaviour
     public bool charaMenu2 = false;
     public bool charaMenu3 = false;
 
+
+    private float cursorDelay;
     /*
      *will go on characters later just for testing purposes 
      * 
@@ -61,14 +64,12 @@ public class CursorMovementScript : MonoBehaviour
     {
         //runs function Blink at the start and reruns it every 0.4 seconds by default 
         InvokeRepeating("Blink", 0, blinkSpeed);
-
     }
 
     // Update is called once per frame 
     void Update()
     {
         Controls();
-        print("list spot " + keypressPlacement + " location " + keypressNum);
 
         switch (state)
         {
@@ -100,6 +101,20 @@ public class CursorMovementScript : MonoBehaviour
                         keypressPlacement = 0;
                     }
                 }
+
+                //for (int i = 0; i < keypress.Count; i++)
+                //{
+                //    if (unit.transform.position.x >= desPos.x) //for real you'd  do a more precise check to see if it went past the des or not
+                //    {
+                //        keypress[i][0] = 0;
+                //    }
+                //    if (unit.transform.position.y >= desPos.y)
+                //    {
+                //        keypress[i][1] = 0;
+                //    }
+                //    print("here");
+                //    unit.rigidbody.velocity.Set(keypress[i][0], keypress[i][1]);
+                //}
                 break;
         }
     }
@@ -113,10 +128,10 @@ public class CursorMovementScript : MonoBehaviour
         currentPosition = unit.transform.position;
 
         //moves the character torwards the next location
+
         unit.transform.position += (route - currentPosition) * slideSpeed * Time.deltaTime;
-        //unit.rigidbody.velocity.Set(10, 10); 
         //how close before unit snaps into place
-        float reachedDistance = 0.01f;
+        float reachedDistance = 0.1f;
 
         //if unit is close enough ends the movement
         if (Vector3.Distance(currentPosition, route) < reachedDistance)
@@ -149,13 +164,25 @@ public class CursorMovementScript : MonoBehaviour
         MovementUpdate();
     }
 
-
+    private bool Repeater()
+    {
+        if(cursorDelay > 0)
+        {
+            cursorDelay -= Time.deltaTime;
+            return false;
+        }
+        else
+        {
+            cursorDelay = 0;
+            return true;
+        }
+    }
     private void Controls()
     {
-        //sets left or right on 
-        if (Input.GetButtonDown("Horizontal"))
+        //sets left or right on
+        if (Input.GetButtonDown("Horizontal") || Input.GetButton("Horizontal") && Repeater())
         {
-
+            cursorDelay = .25f;
             horizontal = (int)Input.GetAxisRaw("Horizontal");
             if (charaMenu || charaMenu2)
             {
@@ -164,10 +191,10 @@ public class CursorMovementScript : MonoBehaviour
             charaMenu = false;
             charaMenu2 = false;
         }
-
         //sets up or down on 
-        if (Input.GetButtonDown("Vertical"))
+        if (Input.GetButtonDown("Vertical") || Input.GetButton("Vertical") && Repeater())
         {
+            cursorDelay = .25f;
             vertical = (int)Input.GetAxisRaw("Vertical");
             if (charaMenu || charaMenu2)
             {
@@ -175,7 +202,6 @@ public class CursorMovementScript : MonoBehaviour
             }
             charaMenu = false;
             charaMenu2 = false;
-
         }
         if (horizontal != 0 || vertical != 0)
         {
@@ -185,8 +211,6 @@ public class CursorMovementScript : MonoBehaviour
                 canvas.GetComponent<MenuController>().HideMenus();
             }
         }
-        //if (!charaMenu)
-        //{
         if (Input.GetButtonDown("Confirm") && !canvas.GetComponent<MenuController>().inUse)
         {
 
@@ -207,12 +231,14 @@ public class CursorMovementScript : MonoBehaviour
 
                             //check if there is any key press, then close the menu 
 
+                            //holds starting position
+                            
                             unitSelected = true;
                             canvas.GetComponent<MenuController>().UpdateMenu(unit.transform.GetComponent<StatsScript>());
 
                             remainMov = unit.transform.GetComponent<StatsScript>().Mov;
                             //record the position 
-                            currentPos = desPos = unit.transform.position;
+                            startPos = currentPos = desPos = unit.transform.position;
 
                             charaMenu = true;
                             lockMovement = true;
@@ -246,7 +272,6 @@ public class CursorMovementScript : MonoBehaviour
             {
                 //more complex  
             }
-
         }
         else if (Input.GetButtonDown("Confirm"))
         {
@@ -260,8 +285,6 @@ public class CursorMovementScript : MonoBehaviour
                 canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.confirmation);
             }
         }
-        //}
-
 
         if (Input.GetButtonDown("Return"))
         {
@@ -272,8 +295,11 @@ public class CursorMovementScript : MonoBehaviour
 
             //enables cursor movement 
             lockMovement = false;
+            print(unitSelected);
             if (unitSelected)
             {
+                SnapBack();
+                print("return");
                 if (charaMenu)
                 {
                     charaMenu = false;
@@ -282,7 +308,7 @@ public class CursorMovementScript : MonoBehaviour
                     totalSteps = new Vector3(0, 0, 0);
                     keypress.Clear();
                     unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
-                    SnapBack();
+                    
                 }
                 else if (charaMenu2)
                 {
@@ -315,12 +341,10 @@ public class CursorMovementScript : MonoBehaviour
             {
                 currentPos = unit.transform.position;
                 state = State.moving;
-                CharaMove();
+                //EndTurn();
 
                 totalSteps = new Vector3(0, 0, 0);
                 //keypress.Clear();
-                unitSelected = false;
-                unit.transform.GetComponent<StatsScript>().canMove = false;
                 unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
             }
         }
@@ -328,14 +352,17 @@ public class CursorMovementScript : MonoBehaviour
 
     private void SnapBack()
     {
-        gameObject.transform.position = currentPos;
+        unit.transform.position = gameObject.transform.position = startPos;
     }
 
-    private void CharaMove()
+    public void EndTurn()
     {
         //simply approach
         //unit.transform.position = desPos; //doesnt have animation for now
         //animation?
+
+        unitSelected = false;
+        unit.transform.GetComponent<StatsScript>().canMove = false;
 
         //change sprite
         unit.transform.GetComponent<SpriteRenderer>().sprite = unit.transform.GetComponent<StatsScript>().endTurn;
@@ -360,7 +387,6 @@ public class CursorMovementScript : MonoBehaviour
         {
             vertical = 0;
         }
-
         //check to see if movement range is possible 
         if (unitSelected)
         {
@@ -368,7 +394,6 @@ public class CursorMovementScript : MonoBehaviour
             RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position + newPos, Vector2.zero);
             //check for special class properties 
             //flying uniys bypass restrictions 
-
 
             if (unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Pegasus_Knight || unit.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Wyvern_Knight)
             {
@@ -410,7 +435,6 @@ public class CursorMovementScript : MonoBehaviour
                                 vertical = 0;
                                 break;
                             }
-
                         }
                         //every condition where no one can traverse
                         if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Mountain || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.House) || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy) || hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
@@ -419,7 +443,6 @@ public class CursorMovementScript : MonoBehaviour
                             vertical = 0;
                             break;
                         }
-
                     }
                 }
             }
@@ -438,8 +461,6 @@ public class CursorMovementScript : MonoBehaviour
                 //increment to get to possible grid space 
                 desPos.x += horizontal;
                 desPos.y += vertical;
-
-
             }
             if (horizontal != 0 || vertical != 0)
             {
@@ -453,7 +474,6 @@ public class CursorMovementScript : MonoBehaviour
 
         horizontal = vertical = 0;
     }
-
 
     ////notes 
     /* 

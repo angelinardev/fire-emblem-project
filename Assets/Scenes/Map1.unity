@@ -361,13 +361,14 @@ MonoBehaviour:
   remainMov: 0
   currentPos: {x: 0, y: 0, z: 0}
   desPos: {x: 0, y: 0, z: 0}
+  startPos: {x: 0, y: 0, z: 0}
   totalSteps: {x: 0, y: 0, z: 0}
   charaMenu: 0
   charaMenu2: 0
   charaMenu3: 0
   state: 0
   currentPosition: {x: 0, y: 0, z: 0}
-  slideSpeed: 25
+  slideSpeed: 30
 --- !u!61 &55203291
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3518,6 +3519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443079108540d8b45b7aa348202578e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursor: {fileID: 55203290}
   currentMenu: 0
   inUse: 0
   menus:
