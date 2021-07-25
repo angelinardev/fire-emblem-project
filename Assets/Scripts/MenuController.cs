@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-    //public GameObject[,] menus;
+    [SerializeField]
+    private CursorMovementScript cursor;
 
     public Menus currentMenu;
 
@@ -170,7 +171,8 @@ public class MenuController : MonoBehaviour
 
     public void Attack()
     {
-
+        cursor.EndTurn();
+        CloseMenus();
     }
 
     public void Items()
@@ -180,6 +182,7 @@ public class MenuController : MonoBehaviour
 
     public void Wait()
     {
-
+        cursor.EndTurn();
+        CloseMenus();
     }
 }
