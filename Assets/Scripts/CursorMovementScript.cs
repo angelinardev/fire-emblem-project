@@ -204,29 +204,33 @@ public class CursorMovementScript : MonoBehaviour
     }
     private void Controls()
     {
+        if (charaMenu || charaMenu2)
+        {
+            lockMovement = false;
+        }
+        else if (charaMenu3)
+        {
+            lockMovement = true;
+        }
+        charaMenu = false;
+        charaMenu2 = false;
         //sets left or right on
         if (Input.GetButtonDown("Horizontal") || Input.GetButton("Horizontal") && Repeater())
         {
-            cursorDelay = .25f;
-            horizontal = (int)Input.GetAxisRaw("Horizontal");
-            if (charaMenu || charaMenu2)
+            if(!lockMovement)
             {
-                lockMovement = false;
+                cursorDelay = .25f;
+                horizontal = (int)Input.GetAxisRaw("Horizontal");
             }
-            charaMenu = false;
-            charaMenu2 = false;
         }
         //sets up or down on 
         if (Input.GetButtonDown("Vertical") || Input.GetButton("Vertical") && Repeater())
         {
-            cursorDelay = .25f;
-            vertical = (int)Input.GetAxisRaw("Vertical");
-            if (charaMenu || charaMenu2)
+            if (!lockMovement)
             {
-                lockMovement = false;
+                cursorDelay = .25f;
+                vertical = (int)Input.GetAxisRaw("Vertical");
             }
-            charaMenu = false;
-            charaMenu2 = false;
         }
         if (horizontal != 0 || vertical != 0)
         {
@@ -301,6 +305,31 @@ public class CursorMovementScript : MonoBehaviour
         }
         else if (Input.GetButtonDown("Confirm"))
         {
+            if (unitSelected && !charaMenu && !charaMenu2 && !charaMenu3)
+            {
+                //player wants to move
+                //check if theyre trying to move to a position with already a player
+                RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
+                for (int i = 0; i < hitAll.Length; i++)
+                {
+                    if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
+                    {
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                        {
+                            noMenu = true;
+                            return; //prevent further action
+                        }
+                    }
+                }
+                noMenu = false;
+                currentPos = unit.transform.position;
+                state = State.moving;
+
+                totalSteps = new Vector3(0, 0, 0);
+                //keypress.Clear();
+                unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
+            }
+
             if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.basicinfo)
             {
                 canvas.GetComponent<MenuController>().UpdateMenu(true);
@@ -362,34 +391,7 @@ public class CursorMovementScript : MonoBehaviour
                 }
             }
         }
-        if (unitSelected && !charaMenu && !charaMenu2 && !charaMenu3)
-        {
-            //player wants to move
-            //check if theyre trying to move to a position with already a player
-            if (Input.GetButtonDown("Confirm"))
-            {
-                RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
-                for (int i = 0; i < hitAll.Length; i++)
-                {
-                    if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
-                    {
-                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
-                        {
-                            noMenu = true;
-                            return; //prevent further action
-                        }
-                    }
-                }
-                noMenu = false;
-                currentPos = unit.transform.position;
-                state = State.moving;
-                EndTurn();
-               
-                totalSteps = new Vector3(0, 0, 0);
-                //keypress.Clear();
-                unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
-            }
-        }
+        
     }
 
     private void SnapBack()
