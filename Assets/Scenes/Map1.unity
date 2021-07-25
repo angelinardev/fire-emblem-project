@@ -362,16 +362,22 @@ MonoBehaviour:
   currentPos: {x: 0, y: 0, z: 0}
   desPos: {x: 0, y: 0, z: 0}
   totalSteps: {x: 0, y: 0, z: 0}
+  all_units:
+  - {fileID: 1471695710}
+  - {fileID: 560778125}
+  - {fileID: 341558232}
+  - {fileID: 235109539}
+  - {fileID: 1696284114}
+  - {fileID: 836799649}
+  - {fileID: 191518589}
+  - {fileID: 552222716}
   charaMenu: 0
   charaMenu2: 0
   charaMenu3: 0
+  playerPhase: 1
   state: 0
-  moveTargetPosition: {x: 0, y: 0, z: 0}
-  movingChar: {fileID: 191518589}
   currentPosition: {x: 0, y: 0, z: 0}
-  locations:
-  - location: 0500000005000000
-  - location: 0600000006000000
+  slideSpeed: 5
 --- !u!61 &55203291
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2875,7 +2881,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &552222717
 BoxCollider2D:
   m_ObjectHideFlags: 0

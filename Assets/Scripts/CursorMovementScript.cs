@@ -24,9 +24,16 @@ public class CursorMovementScript : MonoBehaviour
 
     public RaycastHit2D unit;
 
+    public GameObject[] all_units = { };
+    int end_count = 0;
+
     public bool charaMenu = false;
     public bool charaMenu2 = false;
     public bool charaMenu3 = false;
+
+    bool noMenu = false;
+
+    public bool playerPhase = true;
 
     /*
      *will go on characters later just for testing purposes 
@@ -67,6 +74,24 @@ public class CursorMovementScript : MonoBehaviour
     // Update is called once per frame 
     void Update()
     {
+        //check for end turn
+        for (int i=0; i < all_units.Length;i++)
+        {
+            if (all_units[i].activeSelf && all_units[i].GetComponent<StatsScript>().canMove) //also check if unit is in the scene
+            {
+                playerPhase = true;
+                break;
+            }
+            playerPhase = false;
+            
+        }
+        
+        if (!playerPhase)
+        {
+            lockMovement = true;
+        }
+        
+
         Controls();
         print("list spot " + keypressPlacement + " location " + keypressNum);
 
@@ -256,7 +281,7 @@ public class CursorMovementScript : MonoBehaviour
                 {
                     canvas.GetComponent<MenuController>().UpdateMenu(true);
                 }
-                else
+                else if (!noMenu)
                 {
                     lockMovement = true;
                     canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.confirmation);
@@ -268,7 +293,7 @@ public class CursorMovementScript : MonoBehaviour
         if (Input.GetButtonDown("Return"))
         {
             //closes the menus currently visible 
-
+            noMenu = false;
             canvas.GetComponent<MenuController>().CloseMenus();
             canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.basicinfo;
 
@@ -313,8 +338,22 @@ public class CursorMovementScript : MonoBehaviour
         if (unitSelected && !charaMenu && !charaMenu2 && !charaMenu3)
         {
             //player wants to move
+            //check if theyre trying to move to a position with already a player
             if (Input.GetButtonDown("Confirm"))
             {
+                RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
+                for (int i = 0; i < hitAll.Length; i++)
+                {
+                    if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
+                    {
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                        {
+                            noMenu = true;
+                            return; //prevent further action
+                        }
+                    }
+                }
+                noMenu = false;
                 currentPos = unit.transform.position;
                 state = State.moving;
                 CharaMove();
@@ -379,7 +418,7 @@ public class CursorMovementScript : MonoBehaviour
                 {
                     if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
                     {
-                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy || hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy)
                         {
                             horizontal = 0;
                             vertical = 0;
@@ -415,7 +454,7 @@ public class CursorMovementScript : MonoBehaviour
 
                         }
                         //every condition where no one can traverse
-                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Mountain || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.House) || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy)|| hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Mountain || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.House) || (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy))
                         {
                             horizontal = 0;
                             vertical = 0;
