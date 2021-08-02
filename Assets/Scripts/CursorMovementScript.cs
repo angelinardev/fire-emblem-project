@@ -90,7 +90,9 @@ public class CursorMovementScript : MonoBehaviour
         
         if (!playerPhase)
         {
-            lockMovement = true;
+            //player cant move?
+            //lockMovement = true;
+            //enable enemy phase movement
         }
         
 
@@ -305,6 +307,17 @@ public class CursorMovementScript : MonoBehaviour
         }
         else if (Input.GetButtonDown("Confirm"))
         {
+            if (unitSelected && charaMenu3)
+            {
+                EndTurn();
+                lockMovement = false;
+                charaMenu3 = false;
+                charaMenu = false;
+                charaMenu2 = false;
+                //CLOSE MENUS
+                canvas.GetComponent<MenuController>().CloseMenus();
+                canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.basicinfo;
+            }
             if (unitSelected && !charaMenu && !charaMenu2 && !charaMenu3)
             {
                 //player wants to move
@@ -324,11 +337,13 @@ public class CursorMovementScript : MonoBehaviour
                 noMenu = false;
                 currentPos = unit.transform.position;
                 state = State.moving;
-
+                charaMenu3 = true;
                 totalSteps = new Vector3(0, 0, 0);
                 //keypress.Clear();
                 unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
+
             }
+            
 
             if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.basicinfo)
             {
@@ -336,7 +351,7 @@ public class CursorMovementScript : MonoBehaviour
             }
             else
             {
-                lockMovement = true;
+                //lockMovement = true;
                 canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.confirmation);
             }
         }

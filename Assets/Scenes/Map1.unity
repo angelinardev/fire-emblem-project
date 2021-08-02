@@ -1069,6 +1069,7 @@ GameObject:
   - component: {fileID: 215164708}
   - component: {fileID: 215164711}
   - component: {fileID: 215164710}
+  - component: {fileID: 215164712}
   m_Layer: 0
   m_Name: Enemy thief
   m_TagString: Untagged
@@ -1177,14 +1178,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 16
+  Str: 3
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
+  Spd: 7
+  Lck: 0
   Def: 1
-  Res: 1
+  Res: 0
   Mov: 7
   g_rates:
   - 1
@@ -1239,6 +1240,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &215164712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215164705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &235109539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,6 +1713,7 @@ GameObject:
   - component: {fileID: 345975717}
   - component: {fileID: 345975720}
   - component: {fileID: 345975719}
+  - component: {fileID: 345975721}
   m_Layer: 0
   m_Name: Enemy axe10
   m_TagString: Untagged
@@ -1807,14 +1822,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -1869,6 +1884,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &345975721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345975714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &390230030
 GameObject:
   m_ObjectHideFlags: 0
@@ -3242,6 +3270,7 @@ GameObject:
   - component: {fileID: 605294778}
   - component: {fileID: 605294781}
   - component: {fileID: 605294780}
+  - component: {fileID: 605294782}
   m_Layer: 0
   m_Name: Enemy axe8
   m_TagString: Untagged
@@ -3350,14 +3379,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -3412,6 +3441,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &605294782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605294775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &698943353
 GameObject:
   m_ObjectHideFlags: 0
@@ -4035,6 +4077,7 @@ GameObject:
   - component: {fileID: 774185945}
   - component: {fileID: 774185948}
   - component: {fileID: 774185947}
+  - component: {fileID: 774185949}
   m_Layer: 0
   m_Name: Enemy axe11
   m_TagString: Untagged
@@ -4143,14 +4186,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -4205,6 +4248,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &774185949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774185942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &832208410
 GameObject:
   m_ObjectHideFlags: 0
@@ -20711,6 +20767,22 @@ MonoBehaviour:
   up: {fileID: 1069783538}
   down: {fileID: 773418718}
   cursor: {fileID: 55203287}
+  all_enemies:
+  - {fileID: 1477202706}
+  - {fileID: 1066168365}
+  - {fileID: 2122192584}
+  - {fileID: 1552581245}
+  - {fileID: 1239646122}
+  - {fileID: 1424747182}
+  - {fileID: 1179898453}
+  - {fileID: 605294775}
+  - {fileID: 1557361497}
+  - {fileID: 1557361497}
+  - {fileID: 345975714}
+  - {fileID: 774185942}
+  - {fileID: 2017141285}
+  - {fileID: 215164705}
+  - {fileID: 1682167243}
 --- !u!1 &916563845
 GameObject:
   m_ObjectHideFlags: 0
@@ -21085,6 +21157,7 @@ GameObject:
   - component: {fileID: 1066168368}
   - component: {fileID: 1066168371}
   - component: {fileID: 1066168370}
+  - component: {fileID: 1066168372}
   m_Layer: 0
   m_Name: Enemy axe1
   m_TagString: Untagged
@@ -21193,14 +21266,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -21255,6 +21328,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &1066168372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066168365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &1069783538
 GameObject:
   m_ObjectHideFlags: 0
@@ -25369,6 +25455,7 @@ GameObject:
   - component: {fileID: 1179898456}
   - component: {fileID: 1179898459}
   - component: {fileID: 1179898458}
+  - component: {fileID: 1179898460}
   m_Layer: 0
   m_Name: Enemy axe7
   m_TagString: Untagged
@@ -25477,14 +25564,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -25539,6 +25626,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &1179898460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179898453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &1239646122
 GameObject:
   m_ObjectHideFlags: 0
@@ -25553,6 +25653,7 @@ GameObject:
   - component: {fileID: 1239646125}
   - component: {fileID: 1239646128}
   - component: {fileID: 1239646127}
+  - component: {fileID: 1239646129}
   m_Layer: 0
   m_Name: Enemy axe4
   m_TagString: Untagged
@@ -25661,14 +25762,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -25723,6 +25824,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &1239646129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239646122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &1246973531
 GameObject:
   m_ObjectHideFlags: 0
@@ -25998,6 +26112,7 @@ GameObject:
   - component: {fileID: 1424747185}
   - component: {fileID: 1424747188}
   - component: {fileID: 1424747187}
+  - component: {fileID: 1424747189}
   m_Layer: 0
   m_Name: Enemy axe6
   m_TagString: Untagged
@@ -26106,14 +26221,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -26168,6 +26283,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &1424747189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424747182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &1471695710
 GameObject:
   m_ObjectHideFlags: 0
@@ -26365,6 +26493,7 @@ GameObject:
   - component: {fileID: 1477202709}
   - component: {fileID: 1477202712}
   - component: {fileID: 1477202711}
+  - component: {fileID: 1477202713}
   m_Layer: 0
   m_Name: Enemy archer
   m_TagString: Untagged
@@ -26473,15 +26602,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
-  Skl: 1
+  HP: 18
+  Str: 6
+  Skl: 4
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
-  Mov: 5
+  Spd: 6
+  Lck: 0
+  Def: 3
+  Res: 0
+  Mov: 6
   g_rates:
   - 1
   - 1
@@ -26535,6 +26664,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &1477202713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477202706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &1478696171
 GameObject:
   m_ObjectHideFlags: 0
@@ -26628,6 +26770,7 @@ GameObject:
   - component: {fileID: 1552581248}
   - component: {fileID: 1552581251}
   - component: {fileID: 1552581250}
+  - component: {fileID: 1552581252}
   m_Layer: 0
   m_Name: Enemy axe3
   m_TagString: Untagged
@@ -26736,14 +26879,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -26798,6 +26941,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &1552581252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552581245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &1557361497
 GameObject:
   m_ObjectHideFlags: 0
@@ -26812,6 +26968,7 @@ GameObject:
   - component: {fileID: 1557361500}
   - component: {fileID: 1557361503}
   - component: {fileID: 1557361502}
+  - component: {fileID: 1557361504}
   m_Layer: 0
   m_Name: Enemy axe9
   m_TagString: Untagged
@@ -26920,14 +27077,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -26982,6 +27139,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &1557361504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557361497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &1599111984
 GameObject:
   m_ObjectHideFlags: 0
@@ -27204,6 +27374,7 @@ GameObject:
   - component: {fileID: 1682167246}
   - component: {fileID: 1682167249}
   - component: {fileID: 1682167248}
+  - component: {fileID: 1682167250}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -27310,7 +27481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb13768a6fed7247b627e54927d0542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  name: Gazzak
   Lvl: 5
   HP: 24
   Str: 7
@@ -27320,7 +27491,7 @@ MonoBehaviour:
   Lck: 0
   Def: 6
   Res: 0
-  Mov: 6
+  Mov: 0
   g_rates:
   - 1
   - 1
@@ -27374,6 +27545,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &1682167250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682167243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &1696284114
 GameObject:
   m_ObjectHideFlags: 0
@@ -28156,6 +28340,7 @@ GameObject:
   - component: {fileID: 2017141288}
   - component: {fileID: 2017141291}
   - component: {fileID: 2017141290}
+  - component: {fileID: 2017141292}
   m_Layer: 0
   m_Name: Enemy axe12
   m_TagString: Untagged
@@ -28264,14 +28449,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -28326,6 +28511,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &2017141292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017141285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
 --- !u!1 &2122192584
 GameObject:
   m_ObjectHideFlags: 0
@@ -28340,6 +28538,7 @@ GameObject:
   - component: {fileID: 2122192587}
   - component: {fileID: 2122192590}
   - component: {fileID: 2122192589}
+  - component: {fileID: 2122192591}
   m_Layer: 0
   m_Name: Enemy axe2
   m_TagString: Untagged
@@ -28448,14 +28647,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 1
-  Str: 1
+  HP: 18
+  Str: 5
   Skl: 1
   Wpn: 1
-  Spd: 1
-  Lck: 1
-  Def: 1
-  Res: 1
+  Spd: 6
+  Lck: 0
+  Def: 4
+  Res: 0
   Mov: 6
   g_rates:
   - 1
@@ -28510,3 +28709,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 3
+--- !u!114 &2122192591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122192584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94606cc77b6c7314092cfa37e3a85524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0

@@ -15,6 +15,9 @@ public class FollowIcon : MonoBehaviour
         down,
         cursor;
 
+    public GameObject[] all_enemies = { };
+    int counter = 0;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,27 @@ public class FollowIcon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (cursor.transform.GetComponent<CursorMovementScript>().playerPhase)
+        {
+            myPlay = cursor.transform;
+            counter = 0;
+        }
+        else
+        {
+            //enemy turn
+            for (int i = counter; i < all_enemies.Length; i++)
+            {
+                if (all_enemies[i].activeSelf && all_enemies[i].GetComponent<StatsScript>().canMove)
+                {
+                    all_enemies[i].transform.GetComponent<AIMovement>().ActivateTurn();
+                    myPlay = all_enemies[i].transform;
+                    counter = i;
+                    break;
+                    
+                }
+            }
+        }
+
         transform.position = myPlay.position + myPos.normalized;
 
         //if(left.GetComponent<CameraScreenScript>().move)
