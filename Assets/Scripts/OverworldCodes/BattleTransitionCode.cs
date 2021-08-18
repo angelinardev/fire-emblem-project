@@ -31,7 +31,7 @@ public class BattleTransitionCode : MonoBehaviour
 
     //public bool defeated = false;
 
-    private string sceneName = "Battle Scene ";
+    /////private string sceneName = "Battle Scene ";
 
     //private CharacterControls player;
 

@@ -26,16 +26,12 @@ public class CursorMovementScript : MonoBehaviour
     public RaycastHit2D unit;
 
     public GameObject[] all_units = { };
-    int end_count = 0;
-
-    public bool charaMenu = false;
-    public bool charaMenu2 = false;
-    public bool charaMenu3 = false;
+    //int end_count = 0;
 
     bool noMenu = false;
+    private bool skipInput = false;
 
     public bool playerPhase = true;
-
 
     private float cursorDelay;
     /*
@@ -60,10 +56,6 @@ public class CursorMovementScript : MonoBehaviour
         keypressPlacement; // the "Y" of movement
 
     public float slideSpeed = 5f; // how fast characters move on screen
-    /* 
-    * 
-    * 
-    */
 
     public List<int[]> keypress = new List<int[]>();
 
@@ -73,11 +65,18 @@ public class CursorMovementScript : MonoBehaviour
         InvokeRepeating("Blink", 0, blinkSpeed);
     }
 
+    public void EndPhase()
+    {
+        for (int i = 0; i < all_units.Length; i++)
+        {
+            all_units[i].GetComponent<StatsScript>().canMove = false;
+        }
+    }
     // Update is called once per frame 
     void Update()
     {
         //check for end turn
-        for (int i=0; i < all_units.Length;i++)
+        for (int i = 0; i < all_units.Length; i++)
         {
             if (all_units[i].activeSelf && all_units[i].GetComponent<StatsScript>().canMove) //also check if unit is in the scene
             {
@@ -85,16 +84,16 @@ public class CursorMovementScript : MonoBehaviour
                 break;
             }
             playerPhase = false;
-            
+
         }
-        
+
         if (!playerPhase)
         {
             //player cant move?
-            //lockMovement = true;
+            lockMovement = true;
             //enable enemy phase movement
         }
-        
+
 
         Controls();
 
@@ -111,6 +110,7 @@ public class CursorMovementScript : MonoBehaviour
                 {
                     keypressPlacement = keypressNum = 0;
                     keypress.Clear();
+                    canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.confirmation);
                     state = State.end;
                 }
                 else if (keypressPlacement == 0)
@@ -128,28 +128,43 @@ public class CursorMovementScript : MonoBehaviour
                         keypressPlacement = 0;
                     }
                 }
-
-                //for (int i = 0; i < keypress.Count; i++)
-                //{
-                //    if (unit.transform.position.x >= desPos.x) //for real you'd  do a more precise check to see if it went past the des or not
-                //    {
-                //        keypress[i][0] = 0;
-                //    }
-                //    if (unit.transform.position.y >= desPos.y)
-                //    {
-                //        keypress[i][1] = 0;
-                //    }
-                //    print("here");
-                //    unit.rigidbody.velocity.Set(keypress[i][0], keypress[i][1]);
-                //}
                 break;
         }
     }
 
-    /// <summary>
-    /// more testing
-    /// 
-    /// </summary>
+    private void FixedUpdate()
+    {
+        //stops all cursor movement and removes stored movement 
+        if (lockMovement)
+        {
+            horizontal = vertical = 0;
+            return;
+        }
+
+        MovementUpdate();
+    }
+
+    void Blink()
+    {
+        //turns cursor on and off 
+        gameObject.GetComponent<SpriteRenderer>().enabled = !gameObject.GetComponent<SpriteRenderer>().enabled;
+    }
+
+    //lets cursor move by holding a direction
+    private bool Repeater()
+    {
+        if (cursorDelay > 0)
+        {
+            cursorDelay -= Time.deltaTime;
+            return false;
+        }
+        else
+        {
+            cursorDelay = 0;
+            return true;
+        }
+    }
+
     public bool MoveUnit(Vector3 route)
     {
         currentPosition = unit.transform.position;
@@ -169,57 +184,24 @@ public class CursorMovementScript : MonoBehaviour
             currentPos = unit.transform.position;
             return true;
         }
-
         return false;
     }
 
-    void Blink()
-    {
-        //turns cursor on and off 
-        gameObject.GetComponent<SpriteRenderer>().enabled = !gameObject.GetComponent<SpriteRenderer>().enabled;
-    }
-
-    private void FixedUpdate()
-    {
-        //stops all cursor movement and removes stored movement 
-        if (lockMovement)
-        {
-            horizontal = vertical = 0;
-            return;
-        }
-
-        MovementUpdate();
-    }
-
-    private bool Repeater()
-    {
-        if(cursorDelay > 0)
-        {
-            cursorDelay -= Time.deltaTime;
-            return false;
-        }
-        else
-        {
-            cursorDelay = 0;
-            return true;
-        }
-    }
     private void Controls()
     {
-        if (charaMenu || charaMenu2)
+        if (canvas.GetComponent<MenuController>().currentMenu != MenuController.Menus.confirmation && canvas.GetComponent<MenuController>().currentMenu != MenuController.Menus.commands)
         {
             lockMovement = false;
         }
-        else if (charaMenu3)
+        else
         {
             lockMovement = true;
         }
-        charaMenu = false;
-        charaMenu2 = false;
+
         //sets left or right on
         if (Input.GetButtonDown("Horizontal") || Input.GetButton("Horizontal") && Repeater())
         {
-            if(!lockMovement)
+            if (!lockMovement)
             {
                 cursorDelay = .25f;
                 horizontal = (int)Input.GetAxisRaw("Horizontal");
@@ -239,12 +221,11 @@ public class CursorMovementScript : MonoBehaviour
             if (canvas.GetComponent<MenuController>().inUse && (canvas.GetComponent<MenuController>().currentMenu != MenuController.Menus.commands && canvas.GetComponent<MenuController>().currentMenu != MenuController.Menus.confirmation))
             {
                 canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.detailedInfo;
-                canvas.GetComponent<MenuController>().HideMenus();
+                canvas.GetComponent<MenuController>().CloseMenus();
             }
         }
-        if (Input.GetButtonDown("Confirm") && !canvas.GetComponent<MenuController>().inUse)
+        if (Input.GetButtonDown("Confirm") && !canvas.GetComponent<MenuController>().inUse && !unitSelected)
         {
-
             //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up); 
             RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
 
@@ -260,10 +241,8 @@ public class CursorMovementScript : MonoBehaviour
                             //make unit avatar blink 
                             unit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
 
-                            //check if there is any key press, then close the menu 
-
                             //holds starting position
-                            
+
                             unitSelected = true;
                             canvas.GetComponent<MenuController>().UpdateMenu(unit.transform.GetComponent<StatsScript>());
 
@@ -271,54 +250,24 @@ public class CursorMovementScript : MonoBehaviour
                             //record the position 
                             startPos = currentPos = desPos = unit.transform.position;
 
-                            charaMenu = true;
                             lockMovement = true;
 
                             return;
                         }
                     }
-
                 }
             }
-            //if no characters under the cursor continues 
-
-            if (!unitSelected)
+            //if no characters under the cursor continues
+            if(!skipInput)
             {
                 canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.commands);
                 //disables cursor movement 
                 lockMovement = true;
             }
-
-            else if (charaMenu)
-            {
-                charaMenu2 = true;
-                charaMenu = false;
-            }
-            if (charaMenu2)
-            {
-                charaMenu2 = false;
-                charaMenu3 = true;
-            }
-            if (charaMenu3)
-            {
-                lockMovement = true;
-                //more complex  
-            }
         }
         else if (Input.GetButtonDown("Confirm"))
         {
-            if (unitSelected && charaMenu3)
-            {
-                EndTurn();
-                lockMovement = false;
-                charaMenu3 = false;
-                charaMenu = false;
-                charaMenu2 = false;
-                //CLOSE MENUS
-                canvas.GetComponent<MenuController>().CloseMenus();
-                canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.basicinfo;
-            }
-            if (unitSelected && !charaMenu && !charaMenu2 && !charaMenu3)
+            if (unitSelected && !canvas.GetComponent<MenuController>().inUse || unitSelected && canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.detailedInfo)
             {
                 //player wants to move
                 //check if theyre trying to move to a position with already a player
@@ -327,31 +276,28 @@ public class CursorMovementScript : MonoBehaviour
                 {
                     if (hitAll[i].collider != null && hitAll[i].transform.GetComponent<MenuInfoSuppyCode>())
                     {
-                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player)
+                        if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player && hitAll[i] != unit)
                         {
                             noMenu = true;
                             return; //prevent further action
                         }
                     }
                 }
+
                 noMenu = false;
                 currentPos = unit.transform.position;
                 state = State.moving;
-                charaMenu3 = true;
                 totalSteps = new Vector3(0, 0, 0);
-                //keypress.Clear();
                 unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
-
+                lockMovement = true;
             }
-            
-
-            if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.basicinfo)
+            else if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.basicinfo && canvas.GetComponent<MenuController>().inUse)
             {
                 canvas.GetComponent<MenuController>().UpdateMenu(true);
             }
             else
             {
-                //lockMovement = true;
+                lockMovement = true;
                 canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.confirmation);
             }
         }
@@ -361,18 +307,14 @@ public class CursorMovementScript : MonoBehaviour
             //closes the menus currently visible 
             noMenu = false;
             canvas.GetComponent<MenuController>().CloseMenus();
-            canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.basicinfo;
 
             //enables cursor movement 
             lockMovement = false;
-            print(unitSelected);
+
             if (unitSelected)
             {
-                
-                print("return");
-                if (charaMenu)
+                if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.basicinfo)
                 {
-                    charaMenu = false;
                     unitSelected = false;
                     //totalSteps = 0;  
                     totalSteps = new Vector3(0, 0, 0);
@@ -380,22 +322,19 @@ public class CursorMovementScript : MonoBehaviour
                     unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
                     SnapBack();
                 }
-                else if (charaMenu2)
+                else if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.detailedInfo)
                 {
-                    charaMenu2 = false;
                     lockMovement = true;
-                    
                 }
-                else if (charaMenu3)
+                else if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.confirmation)
                 {
-                    charaMenu3 = false;
-                    charaMenu = true;
+                    //canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.basicinfo);//reopens first menu if we go with it
                     //pos reset  
                     SnapBack();
                     totalSteps = new Vector3(0, 0, 0);
                     keypress.Clear();
                 }
-                else if (!charaMenu && !charaMenu2 && !charaMenu3) //just a cancel movement
+                else//just a cancel movement
                 {
                     unitSelected = false;
                     //totalSteps = 0;  
@@ -406,7 +345,7 @@ public class CursorMovementScript : MonoBehaviour
                 }
             }
         }
-        
+        skipInput = false;
     }
 
     private void SnapBack()
@@ -419,12 +358,16 @@ public class CursorMovementScript : MonoBehaviour
         //simply approach
         //unit.transform.position = desPos; //doesnt have animation for now
         //animation?
-
+        canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.basicinfo;
+        skipInput = true;
+        lockMovement = false;
         unitSelected = false;
-        unit.transform.GetComponent<StatsScript>().canMove = false;
-
-        //change sprite
-        unit.transform.GetComponent<SpriteRenderer>().sprite = unit.transform.GetComponent<StatsScript>().endTurn;
+        if(unit.transform != null)
+        {
+            unit.transform.GetComponent<StatsScript>().canMove = false;
+            //change sprite
+            unit.transform.GetComponent<SpriteRenderer>().sprite = unit.transform.GetComponent<StatsScript>().endTurn;
+        }
     }
 
     private void MovementUpdate()
@@ -484,7 +427,6 @@ public class CursorMovementScript : MonoBehaviour
                                 vertical = 0;
                                 break;
                             }
-
                         }
                         if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Hill)
                         {//horse units 
@@ -533,6 +475,55 @@ public class CursorMovementScript : MonoBehaviour
 
         horizontal = vertical = 0;
     }
+
+    public void TargetEnemy()
+    {
+        List<Vector3> enemyList = new List<Vector3>();//list of enemies you can attack
+        List<Vector3> newPos = new List<Vector3>();// each position in your attack range
+        List<RaycastHit2D[]> hitEverything = new List<RaycastHit2D[]>();
+
+        List<Vector3> modifier = new List<Vector3>();
+
+        if (unit.transform.GetComponent<StatsScript>().inventory[0].minRange == 1)
+        {
+            modifier.Add(new Vector3(-1, 0, 0));//left
+            modifier.Add(new Vector3(0, -1, 0));//down
+            modifier.Add(new Vector3(1, 0, 0));//right
+            modifier.Add(new Vector3(0, 1, 0));//up
+        }
+        if (unit.transform.GetComponent<StatsScript>().inventory[0].minRange == 2 || unit.transform.GetComponent<StatsScript>().inventory[0].maxRange >= 2)
+        {
+            modifier.Add(new Vector3(-2, 0, 0)); modifier.Add(new Vector3(0, -2, 0)); modifier.Add(new Vector3(2, 0, 0)); modifier.Add(new Vector3(0, 2, 0));//straights
+            modifier.Add(new Vector3(-1, 1, 0)); modifier.Add(new Vector3(1, -1, 0)); modifier.Add(new Vector3(1, 1, 0)); modifier.Add(new Vector3(1, 1, 0));//diagonals
+        }
+        if (unit.transform.GetComponent<StatsScript>().inventory[0].minRange == 3 || unit.transform.GetComponent<StatsScript>().inventory[0].maxRange >= 3)
+        {
+            modifier.Add(new Vector3(-3, 0, 0)); modifier.Add(new Vector3(0, -3, 0)); modifier.Add(new Vector3(3, 0, 0)); modifier.Add(new Vector3(0, 3, 0));//straights
+            modifier.Add(new Vector3(-2, 1, 0)); modifier.Add(new Vector3(2, -1, 0)); modifier.Add(new Vector3(2, 1, 0)); modifier.Add(new Vector3(2, 1, 0));//diagonals
+            modifier.Add(new Vector3(-1, 2, 0)); modifier.Add(new Vector3(1, -2, 0)); modifier.Add(new Vector3(1, 2, 0)); modifier.Add(new Vector3(1, 2, 0));//diagonals
+        }
+
+        //base is 4 for 1 range needs to be changed later
+        for (int i = 0; i < modifier.Count; i++)
+        {
+            newPos.Add(new Vector3(transform.position.x + modifier[i].x, transform.position.y + modifier[i].y, 0));
+            hitEverything.Add(Physics2D.RaycastAll(newPos[i], Vector2.zero));
+        }
+
+        for (int i = 0; i < hitEverything.Count; i++)
+        {
+            for (int j = 0; j < hitEverything[i].Length; j++)
+            {
+                if (hitEverything[i][j].collider != null && hitEverything[i][j].transform.GetComponent<MenuInfoSuppyCode>() && hitEverything[i][j].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy)
+                {
+                    enemyList.Add(newPos[i]);
+                }
+            }
+        }
+        print("there are " + enemyList.Count + " enemies in range");
+        //need to have cursor move to first enemy location and save locations to cycle through
+    }
+
 
     ////notes 
     /* 

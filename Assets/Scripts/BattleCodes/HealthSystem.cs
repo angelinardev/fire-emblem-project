@@ -7,7 +7,7 @@ public class HealthSystem
 {
 
     public event EventHandler OnHealthChanged;
-    public event EventHandler OnDead;
+    //public event EventHandler OnDead;
 
     private int maxHealth;
     private int health;

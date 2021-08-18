@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -183,10 +183,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.35978103, g: 0.5769024, b: 0.990566, a: 0.39607844}
+    m_PressedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.49019608}
+    m_SelectedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.56078434}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27543735}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -372,9 +372,6 @@ MonoBehaviour:
   - {fileID: 836799649}
   - {fileID: 191518589}
   - {fileID: 552222716}
-  charaMenu: 0
-  charaMenu2: 0
-  charaMenu3: 0
   playerPhase: 1
   state: 0
   currentPosition: {x: 0, y: 0, z: 0}
@@ -478,18 +475,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
+    m_SelectOnUp: {fileID: 730020657}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.35978103, g: 0.5769024, b: 0.990566, a: 0.39607844}
+    m_PressedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.49019608}
+    m_SelectedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.56078434}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -528,7 +525,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58073351}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -993,7 +990,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Marth
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 3
   Wpn: 5
@@ -1178,7 +1176,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 16
+  currentHp: 1
+  maxHp: 1
   Str: 3
   Skl: 1
   Wpn: 1
@@ -1375,7 +1374,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gordin
   Lvl: 1
-  HP: 16
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 5
@@ -1637,7 +1637,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Draug
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 7
   Skl: 3
   Wpn: 4
@@ -1822,7 +1823,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1
@@ -2985,7 +2987,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Wrys
   Lvl: 1
-  HP: 16
+  currentHp: 1
+  maxHp: 1
   Str: 1
   Skl: 5
   Wpn: 3
@@ -3195,7 +3198,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Abel
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 6
   Skl: 7
   Wpn: 6
@@ -3379,7 +3383,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1
@@ -3746,7 +3751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3754,10 +3759,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.35978103, g: 0.5769024, b: 0.990566, a: 0.39607844}
+    m_PressedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.49019608}
+    m_SelectedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.56078434}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3796,7 +3801,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725475341}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -3879,18 +3884,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1778309689}
+    m_SelectOnDown: {fileID: 58073353}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.35978103, g: 0.5769024, b: 0.990566, a: 0.39607844}
+    m_PressedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.49019608}
+    m_SelectedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.56078434}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3929,7 +3934,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 730020655}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -4186,7 +4191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1
@@ -20394,7 +20400,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Jagen
   Lvl: 1
-  HP: 20
+  currentHp: 1
+  maxHp: 1
   Str: 7
   Skl: 10
   Wpn: 10
@@ -20508,18 +20515,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1856171603}
+    m_SelectOnDown: {fileID: 1675097356}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.35978103, g: 0.5769024, b: 0.990566, a: 0.39607844}
+    m_PressedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.49019608}
+    m_SelectedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.56078434}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -20558,7 +20565,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856213960}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -21266,7 +21273,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1
@@ -25360,7 +25368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -25368,10 +25376,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.35978103, g: 0.5769024, b: 0.990566, a: 0.39607844}
+    m_PressedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.49019608}
+    m_SelectedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.56078434}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -25410,7 +25418,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150541166}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -25564,7 +25572,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1
@@ -25762,7 +25771,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1
@@ -26221,7 +26231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1
@@ -26418,7 +26429,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Cain
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 7
   Skl: 5
   Wpn: 5
@@ -26602,7 +26614,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 6
   Skl: 4
   Wpn: 1
@@ -26879,7 +26892,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1
@@ -27077,7 +27091,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1
@@ -27279,7 +27294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -27287,10 +27302,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.35978103, g: 0.5769024, b: 0.990566, a: 0.39607844}
+    m_PressedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.49019608}
+    m_SelectedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.56078434}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -27329,7 +27344,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675097354}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -27483,7 +27498,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gazzak
   Lvl: 5
-  HP: 24
+  currentHp: 1
+  maxHp: 1
   Str: 7
   Skl: 3
   Wpn: 7
@@ -27680,7 +27696,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Caeda
   Lvl: 1
-  HP: 16
+  currentHp: 1
+  maxHp: 1
   Str: 3
   Skl: 6
   Wpn: 7
@@ -27773,8 +27790,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
+  m_SubmitButton: Confirm
+  m_CancelButton: Return
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
@@ -28071,7 +28088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -28079,10 +28096,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.35978103, g: 0.5769024, b: 0.990566, a: 0.39607844}
+    m_PressedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.49019608}
+    m_SelectedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.56078434}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -28121,7 +28138,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778309687}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -28245,18 +28262,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 1675097356}
+    m_SelectOnDown: {fileID: 856213962}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.35978103, g: 0.5769024, b: 0.990566, a: 0.39607844}
+    m_PressedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.49019608}
+    m_SelectedColor: {r: 0.36078432, g: 0.5764706, b: 0.9921569, a: 0.56078434}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -28295,7 +28312,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1856171601}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -28449,7 +28466,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1
@@ -28647,7 +28665,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  HP: 18
+  currentHp: 1
+  maxHp: 1
   Str: 5
   Skl: 1
   Wpn: 1

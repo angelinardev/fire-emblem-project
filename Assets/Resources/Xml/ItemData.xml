@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Inventory>
+  <Weapon ID="Sword">
+    <Attack>5</Attack>
+    <MinRange>1</MinRange>
+    <MaxRange>1</MaxRange>
+    <Durability>20</Durability>
+  </Weapon>
+  
+  
+</Inventory>

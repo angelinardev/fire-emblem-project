@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class MenuController : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class MenuController : MonoBehaviour
         basicinfo,
         detailedInfo,
         confirmation,
-        commands
+        commands,
     }
 
     [Serializable]
@@ -52,6 +54,10 @@ public class MenuController : MonoBehaviour
             menus[(int)currentMenu].menu[i].SetActive(true);
         }
         inUse = true;
+        if(currentMenu == Menus.confirmation || currentMenu == Menus.commands)
+        {
+            EventSystem.current.SetSelectedGameObject(menus[(int)currentMenu].menu[0].transform.GetChild(0).gameObject);
+        }
     }
 
     //updates menu with character specific data
@@ -129,13 +135,11 @@ public class MenuController : MonoBehaviour
                 menus[i].menu[j].SetActive(false);
             }
         }
-
-        
+        inUse = false;
     }
 
     public void CloseMenus()
     {
-        inUse = false;
         HideMenus();
     }
 
@@ -166,11 +170,16 @@ public class MenuController : MonoBehaviour
 
     public void EndTurn()
     {
-
+        CloseMenus();
+        cursor.EndPhase();
+        cursor.EndTurn();
+        cursor.playerPhase = false;
+        
     }
 
     public void Attack()
     {
+        cursor.TargetEnemy();
         cursor.EndTurn();
         CloseMenus();
     }
@@ -182,7 +191,7 @@ public class MenuController : MonoBehaviour
 
     public void Wait()
     {
-        cursor.EndTurn();
         CloseMenus();
+        cursor.EndTurn();
     }
 }

@@ -10,10 +10,10 @@ public class BattleController : MonoBehaviour
 
     int enemyLayout;
     int enemyAtkOrder;
-    int offTimer = 0;
+    //int offTimer = 0;
     int attacker;
     int target;
-    int pageNum = 1, maxPage;
+    //int pageNum = 1, maxPage;
 
     private bool battleStop = false;
 
