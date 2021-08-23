@@ -990,8 +990,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Marth
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 3
   Wpn: 5
@@ -1178,8 +1178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 16
+  maxHp: 16
   Str: 3
   Skl: 1
   Wpn: 1
@@ -1377,8 +1377,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gordin
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 16
+  maxHp: 16
   Str: 5
   Skl: 1
   Wpn: 5
@@ -1641,8 +1641,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Draug
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 7
   Skl: 3
   Wpn: 4
@@ -1828,8 +1828,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1
@@ -2993,8 +2993,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Wrys
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 16
+  maxHp: 16
   Str: 1
   Skl: 5
   Wpn: 3
@@ -3205,8 +3205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Abel
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 6
   Skl: 7
   Wpn: 6
@@ -3391,8 +3391,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1
@@ -4200,8 +4200,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1
@@ -20410,8 +20410,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Jagen
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 20
+  maxHp: 20
   Str: 7
   Skl: 10
   Wpn: 10
@@ -21284,8 +21284,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1
@@ -25584,8 +25584,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1
@@ -25784,8 +25784,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1
@@ -26245,8 +26245,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1
@@ -26444,8 +26444,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Cain
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 7
   Skl: 5
   Wpn: 5
@@ -26630,8 +26630,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 6
   Skl: 4
   Wpn: 1
@@ -26909,8 +26909,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1
@@ -27109,8 +27109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1
@@ -27517,8 +27517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gazzak
   Lvl: 5
-  currentHp: 1
-  maxHp: 1
+  currentHp: 24
+  maxHp: 24
   Str: 7
   Skl: 3
   Wpn: 7
@@ -27716,8 +27716,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Caeda
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 16
+  maxHp: 16
   Str: 3
   Skl: 6
   Wpn: 7
@@ -28487,8 +28487,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1
@@ -28687,8 +28687,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   Lvl: 1
-  currentHp: 1
-  maxHp: 1
+  currentHp: 18
+  maxHp: 18
   Str: 5
   Skl: 1
   Wpn: 1

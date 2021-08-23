@@ -478,25 +478,38 @@ public class CursorMovementScript : MonoBehaviour
 
     public void TargetEnemy()
     {
-        List<Vector3> enemyList = new List<Vector3>();//list of enemies you can attack
+        List<Vector3> enemyList = new List<Vector3>();//list of enemies POSITION you can attack
+        List<GameObject> enemies = new List<GameObject>(); //actual enemy data
+
         List<Vector3> newPos = new List<Vector3>();// each position in your attack range
         List<RaycastHit2D[]> hitEverything = new List<RaycastHit2D[]>();
 
         List<Vector3> modifier = new List<Vector3>();
 
-        if (unit.transform.GetComponent<StatsScript>().inventory[0].minRange == 1)
+        Weapons thisWep = new Weapons();
+        for (int i=0; i < unit.transform.GetComponent<StatsScript>().inventory.Length; i++)
+        {
+            if (unit.transform.GetComponent<StatsScript>().inventory[i].equipped)
+            {
+                thisWep = (Weapons)unit.transform.GetComponent<StatsScript>().inventory[i];
+                break;
+            }
+            
+        }
+
+        if (thisWep.minRange == 1)
         {
             modifier.Add(new Vector3(-1, 0, 0));//left
             modifier.Add(new Vector3(0, -1, 0));//down
             modifier.Add(new Vector3(1, 0, 0));//right
             modifier.Add(new Vector3(0, 1, 0));//up
         }
-        if (unit.transform.GetComponent<StatsScript>().inventory[0].minRange == 2 || unit.transform.GetComponent<StatsScript>().inventory[0].maxRange >= 2)
+        if (thisWep.minRange == 2 || thisWep.maxRange >= 2)
         {
             modifier.Add(new Vector3(-2, 0, 0)); modifier.Add(new Vector3(0, -2, 0)); modifier.Add(new Vector3(2, 0, 0)); modifier.Add(new Vector3(0, 2, 0));//straights
             modifier.Add(new Vector3(-1, 1, 0)); modifier.Add(new Vector3(1, -1, 0)); modifier.Add(new Vector3(1, 1, 0)); modifier.Add(new Vector3(1, 1, 0));//diagonals
         }
-        if (unit.transform.GetComponent<StatsScript>().inventory[0].minRange == 3 || unit.transform.GetComponent<StatsScript>().inventory[0].maxRange >= 3)
+        if (thisWep.minRange == 3 || thisWep.maxRange >= 3)
         {
             modifier.Add(new Vector3(-3, 0, 0)); modifier.Add(new Vector3(0, -3, 0)); modifier.Add(new Vector3(3, 0, 0)); modifier.Add(new Vector3(0, 3, 0));//straights
             modifier.Add(new Vector3(-2, 1, 0)); modifier.Add(new Vector3(2, -1, 0)); modifier.Add(new Vector3(2, 1, 0)); modifier.Add(new Vector3(2, 1, 0));//diagonals
@@ -517,11 +530,14 @@ public class CursorMovementScript : MonoBehaviour
                 if (hitEverything[i][j].collider != null && hitEverything[i][j].transform.GetComponent<MenuInfoSuppyCode>() && hitEverything[i][j].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Enemy)
                 {
                     enemyList.Add(newPos[i]);
+                    enemies.Add(hitEverything[i][j].transform.gameObject);
                 }
             }
         }
         print("there are " + enemyList.Count + " enemies in range");
         //need to have cursor move to first enemy location and save locations to cycle through
+
+        //enemy calculations
     }
 
 

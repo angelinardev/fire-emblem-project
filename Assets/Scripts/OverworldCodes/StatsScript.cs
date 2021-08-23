@@ -58,7 +58,7 @@ public class StatsScript : MonoBehaviour
     public  List<string> items = new List<string>();
 
     [System.NonSerialized]
-    public InventoryScript[] inventory = new InventoryScript[5];
+    public Items[] inventory = new Items[5];
 
     // Start is called before the first frame update
     void Start()
@@ -74,13 +74,13 @@ public class StatsScript : MonoBehaviour
             {"HP", g_rates[0]}, {"Str", g_rates[1]}, {"Skl", g_rates[2]}, {"Wlv", g_rates[3]}, {"Spd", g_rates[4]},{"Lck", g_rates[5]}, {"Def", g_rates[6]}, {"Res", g_rates[7]}
         };
 
-        if(items.Count > 0 && items.Count <= inventory.Length)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                inventory[i] = new InventoryScript(items[i]);
-            }
-        }
+        //if(items.Count > 0 && items.Count <= inventory.Length)
+        //{
+        //    for (int i = 0; i < items.Count; i++)
+        //    {
+        //        inventory[i] = new InventoryScript(items[i]);
+        //    }
+        //}
     }
 
     // Update is called once per frame
