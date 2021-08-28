@@ -26,6 +26,8 @@ public class MenuController : MonoBehaviour
     public class MenuList
     {
         public GameObject[] menu;
+        public Text[] information;
+        public Image[] portrait;
     }
     public MenuList[] menus;
 
@@ -53,6 +55,12 @@ public class MenuController : MonoBehaviour
         {
             menus[(int)currentMenu].menu[i].SetActive(true);
         }
+
+        if(currentMenu == Menus.basicinfo || currentMenu == Menus.detailedInfo)
+        {
+            UpdateInfo();
+        }
+
         inUse = true;
         if(currentMenu == Menus.confirmation || currentMenu == Menus.commands)
         {
@@ -123,10 +131,92 @@ public class MenuController : MonoBehaviour
 
     }
 
-
+    public void UpdateInfo()
+    {
+        for (int i = 0; i < menus[(int)currentMenu].information.Length; i++)
+        {
+            if(menus[(int)currentMenu].information[i].name == "Name")
+            {
+                menus[(int)currentMenu].information[i].text = cursor.unit.transform.GetComponent<StatsScript>().name;
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Class")
+            {
+                menus[(int)currentMenu].information[i].text = cursor.unit.transform.GetComponent<StatsScript>().classes.ToString();
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Level")
+            {
+                menus[(int)currentMenu].information[i].text = "Lvl " + cursor.unit.transform.GetComponent<StatsScript>().Lvl.ToString();
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Health")
+            {
+                menus[(int)currentMenu].information[i].text = "HP " + (cursor.unit.transform.GetComponent<StatsScript>().currentHp + "/" + cursor.unit.transform.GetComponent<StatsScript>().maxHp).ToString() ;
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Weapon1" && cursor.unit.transform.GetComponent<StatsScript>().inventory.Count > 0)
+            {
+                menus[(int)currentMenu].information[i].text = cursor.unit.transform.GetComponent<StatsScript>().inventory[0].nametag + " " + cursor.unit.transform.GetComponent<StatsScript>().inventory[0].durability + "/" + cursor.unit.transform.GetComponent<StatsScript>().inventory[0].maxDurability;
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Weapon2" && cursor.unit.transform.GetComponent<StatsScript>().inventory.Count > 1)
+            {
+                menus[(int)currentMenu].information[i].text = cursor.unit.transform.GetComponent<StatsScript>().inventory[1].nametag + " " + cursor.unit.transform.GetComponent<StatsScript>().inventory[1].durability + "/" + cursor.unit.transform.GetComponent<StatsScript>().inventory[1].maxDurability;
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Weapon3" && cursor.unit.transform.GetComponent<StatsScript>().inventory.Count > 2)
+            {
+                menus[(int)currentMenu].information[i].text = cursor.unit.transform.GetComponent<StatsScript>().inventory[2].nametag + " " + cursor.unit.transform.GetComponent<StatsScript>().inventory[2].durability + "/" + cursor.unit.transform.GetComponent<StatsScript>().inventory[2].maxDurability;
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Weapon4" && cursor.unit.transform.GetComponent<StatsScript>().inventory.Count == 4)
+            {
+                menus[(int)currentMenu].information[i].text = cursor.unit.transform.GetComponent<StatsScript>().inventory[3].nametag + " " + cursor.unit.transform.GetComponent<StatsScript>().inventory[3].durability + "/" + cursor.unit.transform.GetComponent<StatsScript>().inventory[3].maxDurability;
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Strength")
+            {
+                menus[(int)currentMenu].information[i].text = "Str " + cursor.unit.transform.GetComponent<StatsScript>().Str.ToString();
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Skill")
+            {
+                menus[(int)currentMenu].information[i].text = "Skl " + cursor.unit.transform.GetComponent<StatsScript>().Skl.ToString();
+            }
+            else if (menus[(int)currentMenu].information[i].name == "WeaponLevel")
+            {
+                menus[(int)currentMenu].information[i].text = "Wpn " + cursor.unit.transform.GetComponent<StatsScript>().Wpn.ToString();
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Speed")
+            {
+                menus[(int)currentMenu].information[i].text = "Spd " + cursor.unit.transform.GetComponent<StatsScript>().Spd.ToString();
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Luck")
+            {
+                menus[(int)currentMenu].information[i].text = "Lck " + cursor.unit.transform.GetComponent<StatsScript>().Lck.ToString();
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Defense")
+            {
+                menus[(int)currentMenu].information[i].text = "Def " + cursor.unit.transform.GetComponent<StatsScript>().Def.ToString();
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Movement")
+            {
+                menus[(int)currentMenu].information[i].text = "Mov " + cursor.unit.transform.GetComponent<StatsScript>().Mov.ToString();
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Resistance")
+            {
+                menus[(int)currentMenu].information[i].text = "Res " + cursor.unit.transform.GetComponent<StatsScript>().Res.ToString();
+            }
+            else if (menus[(int)currentMenu].information[i].name == "Experience")
+            {
+                menus[(int)currentMenu].information[i].text = "Exp " +  cursor.unit.transform.GetComponent<StatsScript>().exp.ToString() + "/100";
+            }
+        }
+        if(currentMenu == Menus.detailedInfo && cursor.unit.transform.GetComponent<StatsScript>().portrait != null)
+        {
+            menus[(int)currentMenu].portrait[0].sprite = cursor.unit.transform.GetComponent<StatsScript>().portrait;
+        }
+    }
 
     //hides all menus
-    public void HideMenus()
+    //public void HideMenus()
+    //{
+        
+    //}
+
+    public void CloseMenus()
     {
         for (int i = 0; i < menus.Length; i++)
         {
@@ -136,11 +226,6 @@ public class MenuController : MonoBehaviour
             }
         }
         inUse = false;
-    }
-
-    public void CloseMenus()
-    {
-        HideMenus();
     }
 
 

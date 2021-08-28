@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CursorMovementScript : MonoBehaviour
 {
-    int horizontal,
+    private int horizontal,
         vertical;
 
     public float blinkSpeed = 0.4f;
@@ -49,7 +49,6 @@ public class CursorMovementScript : MonoBehaviour
 
     public Vector3
         currentPosition; //position while unit is moving 
-                         // last position unit was moved to 
 
     private int
         keypressNum, // the "X" of movement
@@ -93,7 +92,6 @@ public class CursorMovementScript : MonoBehaviour
             lockMovement = true;
             //enable enemy phase movement
         }
-
 
         Controls();
 
@@ -487,14 +485,17 @@ public class CursorMovementScript : MonoBehaviour
         List<Vector3> modifier = new List<Vector3>();
 
         Weapons thisWep = new Weapons();
-        for (int i=0; i < unit.transform.GetComponent<StatsScript>().inventory.Length; i++)
+        for (int i=0; i < unit.transform.GetComponent<StatsScript>().inventory.Count; i++)
         {
             if (unit.transform.GetComponent<StatsScript>().inventory[i].equipped)
             {
                 thisWep = (Weapons)unit.transform.GetComponent<StatsScript>().inventory[i];
                 break;
             }
-            
+            else if(thisWep != null)
+            {
+                thisWep = (Weapons)unit.transform.GetComponent<StatsScript>().inventory[0];
+            }
         }
 
         if (thisWep.minRange == 1)

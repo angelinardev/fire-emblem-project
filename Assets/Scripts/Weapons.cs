@@ -34,14 +34,15 @@ public class Weapons : Items
     
     void Equip(bool status)
     {
-        if (status)
-        {
-            equipped = true;
-        }
-        else
-        {
-            equipped = false;
-        }
+        equipped = status;
+        //if (status)
+        //{
+        //    equipped = true;
+        //}
+        //else
+        //{
+        //    equipped = false;
+        //}
     }
    
     // Start is called before the first frame update

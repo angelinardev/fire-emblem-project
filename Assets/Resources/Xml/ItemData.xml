@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Inventory>
   <Weapon ID="Sword">
-    <Attack>5</Attack>
     <MinRange>1</MinRange>
     <MaxRange>1</MaxRange>
+    <Might>5</Might>
+    <Weight>1</Weight>
+    <HitRate>100</HitRate>
+    <WeaponLevel>0</WeaponLevel>
     <Durability>20</Durability>
-  </Weapon>
-  
-  
+    <Value>100</Value>
+    <CritRate>0</CritRate>
+    </Weapon>
 </Inventory>

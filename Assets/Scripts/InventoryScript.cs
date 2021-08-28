@@ -14,7 +14,6 @@ public class InventoryScript
         durability,
         maxDirability; // and anything else needed for gear
 
-
     public InventoryScript(string name)
     {
         //creates and accesses the xml document for data
