@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CursorMovementScript : MonoBehaviour
 {
+    private bool isBattle = false;//to tell when a battle is currently underway
+
     private int horizontal,
         vertical;
 
@@ -34,10 +37,7 @@ public class CursorMovementScript : MonoBehaviour
     public bool playerPhase = true;
 
     private float cursorDelay;
-    /*
-     *will go on characters later just for testing purposes 
-     * 
-     */
+
     public enum State
     {
         standing,
@@ -168,7 +168,6 @@ public class CursorMovementScript : MonoBehaviour
         currentPosition = unit.transform.position;
 
         //moves the character torwards the next location
-
         unit.transform.position += (route - currentPosition) * slideSpeed * Time.deltaTime;
         //how close before unit snaps into place
         float reachedDistance = 0.1f;
@@ -224,7 +223,6 @@ public class CursorMovementScript : MonoBehaviour
         }
         if (Input.GetButtonDown("Confirm") && !canvas.GetComponent<MenuController>().inUse && !unitSelected)
         {
-            //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up); 
             RaycastHit2D[] hitAll = Physics2D.RaycastAll(transform.position, Vector2.zero);
 
             for (int i = 0; i < hitAll.Length; i++)
@@ -322,12 +320,14 @@ public class CursorMovementScript : MonoBehaviour
                 }
                 else if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.detailedInfo)
                 {
+                    canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.basicinfo;
                     lockMovement = true;
                 }
                 else if (canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.confirmation)
                 {
-                    //canvas.GetComponent<MenuController>().UpdateMenu(MenuController.Menus.basicinfo);//reopens first menu if we go with it
-                    //pos reset  
+                    canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.basicinfo;
+                    unit.transform.GetComponent<MenuInfoSuppyCode>().start_b();
+                    lockMovement = true;
                     SnapBack();
                     totalSteps = new Vector3(0, 0, 0);
                     keypress.Clear();
@@ -341,6 +341,12 @@ public class CursorMovementScript : MonoBehaviour
                     unit.transform.GetComponent<MenuInfoSuppyCode>().stop_b();
                     SnapBack();
                 }
+            }
+
+            if(isBattle)
+            {
+                isBattle = false;
+                SceneManager.UnloadSceneAsync("BattleScene");
             }
         }
         skipInput = false;
@@ -516,8 +522,7 @@ public class CursorMovementScript : MonoBehaviour
             modifier.Add(new Vector3(-2, 1, 0)); modifier.Add(new Vector3(2, -1, 0)); modifier.Add(new Vector3(2, 1, 0)); modifier.Add(new Vector3(2, 1, 0));//diagonals
             modifier.Add(new Vector3(-1, 2, 0)); modifier.Add(new Vector3(1, -2, 0)); modifier.Add(new Vector3(1, 2, 0)); modifier.Add(new Vector3(1, 2, 0));//diagonals
         }
-
-        //base is 4 for 1 range needs to be changed later
+        
         for (int i = 0; i < modifier.Count; i++)
         {
             newPos.Add(new Vector3(transform.position.x + modifier[i].x, transform.position.y + modifier[i].y, 0));
@@ -536,6 +541,11 @@ public class CursorMovementScript : MonoBehaviour
             }
         }
         print("there are " + enemyList.Count + " enemies in range");
+        if(enemyList.Count > 0)
+        {
+            SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
+            isBattle = true;
+        }
         //need to have cursor move to first enemy location and save locations to cycle through
 
         //enemy calculations
