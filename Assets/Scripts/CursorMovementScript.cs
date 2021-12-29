@@ -342,6 +342,10 @@ public class CursorMovementScript : MonoBehaviour
                     SnapBack();
                 }
             }
+            else if(canvas.GetComponent<MenuController>().currentMenu == MenuController.Menus.commands)
+            {
+                canvas.GetComponent<MenuController>().currentMenu = MenuController.Menus.basicinfo;
+            }
 
             if(isBattle)
             {
