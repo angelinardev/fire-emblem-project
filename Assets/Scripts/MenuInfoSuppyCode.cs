@@ -16,7 +16,8 @@ public class MenuInfoSuppyCode : MonoBehaviour
         Mountain,
         Hill,
         House,
-        Fortress
+        Fortress,
+        Tree
     }
     
     public void Blink()

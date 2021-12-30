@@ -35,7 +35,7 @@ public class FollowIcon : MonoBehaviour
         else
         {
             //enemy turn
-            for (int i = counter; i < all_enemies.Length; i++)
+            for (int i = 0; i < all_enemies.Length; i++) //all enemis go
             {
                 if (all_enemies[i].activeSelf && all_enemies[i].GetComponent<StatsScript>().canMove)
                 {
@@ -46,6 +46,8 @@ public class FollowIcon : MonoBehaviour
                     
                 }
             }
+            //enemy turn over
+
         }
 
         transform.position = myPlay.position + myPos.normalized;

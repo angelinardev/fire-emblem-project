@@ -62,6 +62,8 @@ public class CursorMovementScript : MonoBehaviour
     {
         //runs function Blink at the start and reruns it every 0.4 seconds by default 
         InvokeRepeating("Blink", 0, blinkSpeed);
+        //testing
+        EndPhase();
     }
 
     public void EndPhase()
