@@ -9,6 +9,8 @@ public class AIMovement : MonoBehaviour
     public GameObject target;
     public GameObject cursor;
 
+    private GameObject attackTarget;
+
     private List<Vector3> openList = new List<Vector3>();
     private List<int> scores = new List<int>();
     private List<Vector3> closedList= new List<Vector3>();
@@ -29,6 +31,7 @@ public class AIMovement : MonoBehaviour
         GameObject[] players = cursor.GetComponent<CursorMovementScript>().all_units;
         //set default target to first unit
         temp = players[0];
+        print(players.Length);
         for (int i=0; i< players.Length; i++)
         {
             if (players[i].activeSelf)
@@ -59,16 +62,18 @@ public class AIMovement : MonoBehaviour
         if (activated)
         {
 
-            if (transform.GetComponent<StatsScript>().name.Equals("Gazzak"))
+            if (transform.GetComponent<StatsScript>().name.Equals("Gazzak")) //boss doesnt move
             {
                 transform.position = new Vector3(-16.5F, 6.5F, 0);
+                activated = false;
+                transform.GetComponent<StatsScript>().canMove = false;
                 return;
             }
             //add current position to the closed list
             closedList.Add(gameObject.transform.position);
             SetTarget(); //movement target
 
-            print(target.name);
+            //print(target.name);
 
             Movement(); //do movement
             activated = false;
@@ -95,7 +100,7 @@ public class AIMovement : MonoBehaviour
         for (int i=0; i< openList.Count; i++)
         {
             //find the tile in the open list that has the lowest score
-            if (scores[i] < lowest)
+            if (scores[i] <= lowest)
             {
                 //print("Swapped score");
                 lowest = scores[i];
@@ -121,9 +126,19 @@ public class AIMovement : MonoBehaviour
         //we also want to check if any player characters are in range, because this will bypass the searching mechanism
         //check all adjacent squares
         checkAdjacent(square+ new Vector3(0, 1), false);
-        checkAdjacent(square + new Vector3(0, -1), false);
-        checkAdjacent(square + new Vector3(1, 0), false);
-        checkAdjacent(square + new Vector3(-1, 0), false);
+        //we want only attack once per turn
+        if (!attacking)
+        {
+            checkAdjacent(square + new Vector3(0, -1), false);
+        }
+        if (!attacking)
+        {
+            checkAdjacent(square + new Vector3(1, 0), false);
+        }
+        if (!attacking)
+        {
+            checkAdjacent(square + new Vector3(-1, 0), false);
+        }
 
         if (!attacking && movedTiles < gameObject.GetComponent<StatsScript>().Mov) //to continue moving, need to not be attacking AND have leftover movement
         {
@@ -139,6 +154,10 @@ public class AIMovement : MonoBehaviour
         {
             transform.position = closedList[i];
             //print(transform.position);
+        }
+        if (attacking)
+        {
+            Attack(attackTarget); //attack at the end of movement
         }
         //at the end
         movedTiles = 0;
@@ -166,7 +185,8 @@ public class AIMovement : MonoBehaviour
                // print("is it going in");
                 if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Player && !checking)
                 {
-                    Attack(hitAll[i].transform.gameObject);
+                    attackTarget = hitAll[i].transform.gameObject;
+                    //Attack(hitAll[i].transform.gameObject);
                     //print("Attacking");
                     attacking = true;
                     break;
@@ -196,13 +216,14 @@ public class AIMovement : MonoBehaviour
                         return; //we don't need to do further calculations
 
                     }
-
+                    
                     if (gameObject.GetComponent<StatsScript>().classes == StatsScript.Classes.Pirate) //is a pirate
                     {
+                        print(hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction);
                         //pirate can walk on water, not on mountain
                         if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.Mountain)
                         {
-                            //print("Unusable tile");
+                            print("Unusable tile");
                            
                             break;
                         }

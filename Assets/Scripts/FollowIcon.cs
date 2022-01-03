@@ -42,11 +42,12 @@ public class FollowIcon : MonoBehaviour
                     all_enemies[i].transform.GetComponent<AIMovement>().ActivateTurn();
                     myPlay = all_enemies[i].transform;
                     counter = i;
-                    break;
+                    //break;
                     
                 }
             }
             //enemy turn over
+            cursor.transform.GetComponent<CursorMovementScript>().StartPhase();
 
         }
 

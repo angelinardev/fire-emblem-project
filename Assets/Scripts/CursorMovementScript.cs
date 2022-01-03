@@ -63,7 +63,20 @@ public class CursorMovementScript : MonoBehaviour
         //runs function Blink at the start and reruns it every 0.4 seconds by default 
         InvokeRepeating("Blink", 0, blinkSpeed);
         //testing
-        EndPhase();
+        //EndPhase();
+    }
+    public void StartPhase()
+    {
+        for (int i = 0; i < all_units.Length; i++)
+        {
+            if (all_units[i].activeSelf)
+            {
+                all_units[i].GetComponent<StatsScript>().canMove = true;
+                //all_units[i].GetComponent<MenuInfoSuppyCode>().start_b();
+                //change sprite
+                all_units[i].transform.GetComponent<SpriteRenderer>().sprite = all_units[i].transform.GetComponent<StatsScript>().normal;
+            }
+        }
     }
 
     public void EndPhase()
