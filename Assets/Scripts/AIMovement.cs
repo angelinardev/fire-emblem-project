@@ -9,6 +9,8 @@ public class AIMovement : MonoBehaviour
     public GameObject target;
     public GameObject cursor;
 
+    public GameObject house;
+
     private GameObject attackTarget;
 
     private List<Vector3> openList = new List<Vector3>();
@@ -71,7 +73,15 @@ public class AIMovement : MonoBehaviour
             }
             //add current position to the closed list
             closedList.Add(gameObject.transform.position);
-            SetTarget(); //movement target
+            if (transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Thief)
+            {
+                //target = the house or whatever
+                target = house;
+            }
+            else
+            {
+                SetTarget(); //movement target
+            }
 
             //print(target.name);
 
@@ -125,19 +135,42 @@ public class AIMovement : MonoBehaviour
 
         //we also want to check if any player characters are in range, because this will bypass the searching mechanism
         //check all adjacent squares
-        checkAdjacent(square+ new Vector3(0, 1), false);
-        //we want only attack once per turn
-        if (!attacking)
+        //CHECK ATTACKING
+       
+        if (transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Hunter) //ARCHER HAS 2 TILE RANGE
         {
-            checkAdjacent(square + new Vector3(0, -1), false);
+            checkAdjacent(square + new Vector3(0, 2), false);
+
+            if (!attacking)
+            {
+                checkAdjacent(square + new Vector3(0, -2), false);
+            }
+            if (!attacking)
+            {
+                checkAdjacent(square + new Vector3(2, 0), false);
+            }
+            if (!attacking)
+            {
+                checkAdjacent(square + new Vector3(-2, 0), false);
+            }
         }
-        if (!attacking)
+        else
         {
-            checkAdjacent(square + new Vector3(1, 0), false);
-        }
-        if (!attacking)
-        {
-            checkAdjacent(square + new Vector3(-1, 0), false);
+            checkAdjacent(square + new Vector3(0, 1), false);
+            //we want only attack once per turn
+            if (!attacking)
+            {
+                checkAdjacent(square + new Vector3(0, -1), false);
+            }
+            if (!attacking)
+            {
+                checkAdjacent(square + new Vector3(1, 0), false);
+            }
+            if (!attacking)
+            {
+                checkAdjacent(square + new Vector3(-1, 0), false);
+            }
+
         }
 
         if (!attacking && movedTiles < gameObject.GetComponent<StatsScript>().Mov) //to continue moving, need to not be attacking AND have leftover movement
@@ -165,11 +198,19 @@ public class AIMovement : MonoBehaviour
         closedList.Clear();
         scores.Clear();
         attacking = false;
+        
     }
 
     public void Attack(GameObject player)
     {
-
+        if (gameObject.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Thief)
+        {
+            //destroy house
+        }
+        else
+        {
+            //normal attacking
+        }
     }
 
     public void checkAdjacent(Vector3 pos, bool checking)
@@ -191,6 +232,14 @@ public class AIMovement : MonoBehaviour
                     attacking = true;
                     break;
 
+                }
+                else if (hitAll[i].transform.GetComponent<MenuInfoSuppyCode>().interaction == MenuInfoSuppyCode.Interaction.House && !checking && gameObject.transform.GetComponent<StatsScript>().classes == StatsScript.Classes.Thief)
+                {
+                    attackTarget = hitAll[i].transform.gameObject;
+                    //Attack(hitAll[i].transform.gameObject);
+                    //print("Attacking");
+                    attacking = true;
+                    break;
                 }
                 else if (checking) //PURELY FOR THE A* ALGORITHM
                 {
